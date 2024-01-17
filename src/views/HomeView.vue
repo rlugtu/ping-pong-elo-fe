@@ -1,15 +1,38 @@
 <template>
-    <main>
-        <TheWelcome />
-        {{ authStore.user }}
-        <button @click="authStore.handleLogin">Login</button>
-
-        <button @click="authStore.handleLogout">Logout</button>
-    </main>
+    <div class="p-2">
+        <div>
+            <h1 class="text-xl">Rankings</h1>
+        </div>
+        <h1 class="text-xl">Recent Matches</h1>
+        <MatchSummaryCard
+            v-for="(match, index) of recentMatches"
+            :key="index"
+            :match="match"
+            class="mt-4 rounded"
+        ></MatchSummaryCard>
+    </div>
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '@/stores/auth'
+import { type Match } from '../types/match'
+import MatchSummaryCard from '@/components/MatchSummaryCard.vue'
+import { onMounted, ref } from 'vue'
+import { testMatch } from '@/utils/testStubs'
 
-const authStore = useAuthStore()
+const liveMatch = ref<Match | null>(null)
+const recentMatches = ref<Match[]>([])
+
+async function loadLiveMatch(): Promise<Match | void> {
+    return testMatch
+}
+
+onMounted(async () => {
+    const match = await loadLiveMatch()
+    if (!match) {
+        return
+    }
+
+    liveMatch.value = match
+    recentMatches.value = [match, match]
+})
 </script>
