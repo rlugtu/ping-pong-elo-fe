@@ -36,7 +36,6 @@
 <script lang="ts" setup>
 import type { User } from '@/types/users'
 import { type Lobby } from '../types/match'
-
 interface LobbyConfig {
     lobby: Lobby
     user: User
