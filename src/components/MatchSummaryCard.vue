@@ -4,23 +4,23 @@
             <h2>{{ match.createdAt.toDateString() }}</h2>
             <h2>Up to: {{ match.winningScore }}</h2>
         </div>
-        <MatchPlayerCard
-            :user="match.sideA[0]"
-            :playerScore="match.sideAScore"
-            :side="'sideA'"
-        ></MatchPlayerCard>
-        <MatchPlayerCard
-            :user="match.sideB[0]"
-            :playerScore="match.sideBScore"
-            :side="'sideB'"
+        <TeamPlayerCard
+            :team="match.teamA"
+            :playerScore="match.teamAScore"
+            :side="'teamA'"
+        ></TeamPlayerCard>
+        <TeamPlayerCard
+            :team="match.teamB"
+            :playerScore="match.teamBScore"
+            :side="'teamB'"
             class="rounded-b"
-        ></MatchPlayerCard>
+        ></TeamPlayerCard>
     </div>
 </template>
 
 <script setup lang="ts">
 import type { Match } from '@/types/match'
-import MatchPlayerCard from './MatchPlayerCard.vue'
+import TeamPlayerCard from './TeamPlayerCard.vue'
 interface MatchConfig {
     match: Match
 }

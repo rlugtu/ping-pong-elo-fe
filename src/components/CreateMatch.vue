@@ -29,10 +29,7 @@ import { ref } from 'vue'
 import { type MatchWinningScore, type MatchSetup } from '../types/match'
 
 const matchSetup = ref<MatchSetup>({
-    sideA: [],
-    sideAScore: 0,
-    sideB: [],
-    sideBScore: 0,
+    teamA: [],
     winningScore: 11
 })
 

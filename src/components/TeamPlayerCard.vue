@@ -1,28 +1,31 @@
 <template>
     <div class="py-2 px-4 flex justify-between items-center" :class="bgStyles">
         <div class="flex flex-col w-[70%]">
-            <h1>{{ user.firstName }} {{ user.lastName }}</h1>
-            <h2>{{ user.elo }}</h2>
+            <div v-for="(user, i) of team.users" :key="i">
+                {{ user.firstName }}
+                {{ user.lastName }}
+                {{ user.elo }}
+            </div>
         </div>
         <h1 class="text-2xl">{{ playerScore }}</h1>
     </div>
 </template>
 
 <script setup lang="ts">
-import type { User } from '@/types/users'
+import type { Team } from '@/types/team'
 import { onMounted, ref } from 'vue'
 
 interface Config {
-    user: User
+    team: Team
     playerScore: number
-    side: 'sideA' | 'sideB'
+    side: 'teamA' | 'teamB'
 }
 
-const { user, playerScore, side } = defineProps<Config>()
+const { team, playerScore, side } = defineProps<Config>()
 
 const bgStyles = ref<string>('')
 onMounted(() => {
-    if (side === 'sideA') {
+    if (side === 'teamA') {
         bgStyles.value = 'bg-red-700 bg-opacity-40'
     } else {
         bgStyles.value = 'bg-blue-700 bg-opacity-40'

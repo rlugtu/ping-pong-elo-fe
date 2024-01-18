@@ -3,17 +3,13 @@
         <h2>First to {{ lobby.winningScore }}</h2>
         <div class="mt-4">
             <div
-                v-for="(player, i) of lobby.sideA"
+                v-for="(user, i) in lobby.teamA.users"
                 :key="i"
                 class="flex justify-between items-center"
             >
-                <div class="flex flex-col">
-                    <h1>{{ player.firstName }}</h1>
-                    <h1>{{ player.department }}sdsdsds</h1>
-                </div>
-                <div>
-                    <h2>{{ player.elo }}</h2>
-                </div>
+                {{ user.firstName }}
+                {{ user.lastName }}
+                {{ user.elo }}
             </div>
             <div class="flex justify-center">VS</div>
             <div class="flex justify-between items-center">
@@ -35,6 +31,7 @@
 </template>
 <script lang="ts" setup>
 import type { User } from '@/types/users'
+
 import { type Lobby } from '../types/match'
 interface LobbyConfig {
     lobby: Lobby
