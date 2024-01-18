@@ -8,7 +8,7 @@
                 :key="i"
             >
                 <div>
-                    <h2>{{ lobby.teamA.users[0].firstName }}'s Room</h2>
+                    <h2>{{ lobby.teamA.users[0].user.firstName }}'s Room</h2>
                     <h3>First to: {{ lobby.winningScore }}</h3>
                 </div>
 
@@ -109,6 +109,8 @@ async function joinMatch(): Promise<void> {
 }
 
 onMounted(async () => {
-    lobbies.value = await matchStore.getAllOpenLobbies()
+    try {
+        lobbies.value = await matchStore.getAllOpenLobbies()
+    } catch (error) {}
 })
 </script>

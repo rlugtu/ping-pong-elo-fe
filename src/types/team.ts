@@ -2,7 +2,9 @@ import type { User } from './users'
 
 export interface Team {
     id: string
-    users: User[]
+    users: {
+        user: User
+    }[]
     elo: number
 }
 

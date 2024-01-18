@@ -17,15 +17,15 @@ export const useMatchStore = defineStore('match', () => {
     async function getAllOpenLobbies(): Promise<Lobby[]> {
         const authHeader = await authStore.getAuthHeader()
         const res = await axios.get<Lobby[]>(`${API_SERVER}/match/lobbies`, authHeader)
-
+        console.log(res.data)
         return res.data
     }
 
-    async function joinLobby(matchId: string, playerInfo: { sideB: string[] }): Promise<Match> {
+    async function joinLobby(matchId: string, teamInfo: { sideB: string[] }): Promise<Match> {
         const authHeader = await authStore.getAuthHeader()
         const res = await axios.patch<Match>(
             `${API_SERVER}/match/${matchId}/join`,
-            playerInfo,
+            teamInfo,
             authHeader
         )
 
