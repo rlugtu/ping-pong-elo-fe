@@ -8,7 +8,7 @@
                 :key="i"
             >
                 <div>
-                    <h2>{{ lobby.teamA.users[0].user.firstName }}'s Room</h2>
+                    <h2>{{ lobby.teamA.users[0].firstName }}'s Room</h2>
                     <h3>First to: {{ lobby.winningScore }}</h3>
                 </div>
 
@@ -90,16 +90,20 @@ async function createMatch(match: MatchSetup): Promise<void> {
 }
 
 async function joinMatch(): Promise<void> {
+    console.log(selectedLobby.value || !user)
     try {
         if (!selectedLobby.value || !user) {
             console.log(selectedLobby.value, user)
             return
         }
         const { id } = user
-        selectedLobby.value.teamB.push(id)
+        selectedLobby.value.teamB
+        const usersToAdd = selectedLobby.value.teamB?.users.map((user) => user.id) ?? []
+
+        usersToAdd.push(id)
 
         await matchStore.joinLobby(selectedLobby.value.id, {
-            sideB: selectedLobby.value.teamB
+            teamB: usersToAdd
         })
     } catch (error) {
         console.log(error)

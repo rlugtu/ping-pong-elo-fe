@@ -21,7 +21,7 @@ export const useMatchStore = defineStore('match', () => {
         return res.data
     }
 
-    async function joinLobby(matchId: string, teamInfo: { sideB: string[] }): Promise<Match> {
+    async function joinLobby(matchId: string, teamInfo: { teamB: string[] }): Promise<Match> {
         const authHeader = await authStore.getAuthHeader()
         const res = await axios.patch<Match>(
             `${API_SERVER}/match/${matchId}/join`,

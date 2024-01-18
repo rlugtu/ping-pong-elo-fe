@@ -23,5 +23,5 @@ export type MatchSetup = Pick<Match, 'winningScore'> & {
 }
 
 export type Lobby = Pick<Match, 'id' | 'teamA' | 'winningScore'> & {
-    teamB: string[]
+    teamB: Team | null
 }
