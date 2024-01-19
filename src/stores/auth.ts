@@ -24,7 +24,6 @@ export const useAuthStore = defineStore('auth', () => {
             id: user.sub || '',
             firstName: user?.given_name || 'first',
             lastName: user?.family_ame || 'last name',
-            elo: 1400,
             department: null,
             email: user?.email || 'email'
         }

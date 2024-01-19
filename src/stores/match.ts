@@ -17,7 +17,14 @@ export const useMatchStore = defineStore('match', () => {
     async function getAllOpenLobbies(): Promise<Lobby[]> {
         const authHeader = await authStore.getAuthHeader()
         const res = await axios.get<Lobby[]>(`${API_SERVER}/match/lobbies`, authHeader)
-        console.log(res.data)
+
+        return res.data
+    }
+
+    async function getCurrentInProgressMatches(): Promise<Match[]> {
+        const authHeader = await authStore.getAuthHeader()
+        const res = await axios.get<Match[]>(`${API_SERVER}/match/in-progress`, authHeader)
+
         return res.data
     }
 
@@ -32,5 +39,5 @@ export const useMatchStore = defineStore('match', () => {
         return res.data
     }
 
-    return { createMatch, getAllOpenLobbies, joinLobby }
+    return { createMatch, getAllOpenLobbies, joinLobby, getCurrentInProgressMatches }
 })

@@ -27,12 +27,17 @@ const userId = computed(() => {
 const user = computed(() => userStore.user)
 
 watch(userId, async (userId) => {
-    if (userId && !userStore.user) {
-        const user = await userStore.getUser(userId)
-        if (!user && authStore.user) {
-            const userInfo = authStore.createUserFromGoogleUser(authStore.user)
-            await userStore.createUser(userInfo)
+    try {
+        if (userId && !userStore.user) {
+            const user = await userStore.getUser(userId)
+
+            if (!user && authStore.user) {
+                const userInfo = authStore.createUserFromGoogleUser(authStore.user)
+                userStore.user = await userStore.createUser(userInfo)
+            }
         }
+    } catch (error) {
+        console.log('error', error)
     }
 })
 </script>

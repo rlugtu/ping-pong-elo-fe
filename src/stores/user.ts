@@ -16,7 +16,6 @@ export const useUserStore = defineStore('user', () => {
         })
 
         user.value = res.data
-
         return res.data
     }
 
