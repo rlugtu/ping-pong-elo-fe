@@ -14,6 +14,13 @@ export const useMatchStore = defineStore('match', () => {
         return res.data
     }
 
+    async function getMatch(id: string): Promise<Match> {
+        const authHeader = await authStore.getAuthHeader()
+        const res = await axios.get<Match>(`${API_SERVER}/match/${id}`, authHeader)
+
+        return res.data
+    }
+
     async function getAllOpenLobbies(): Promise<Lobby[]> {
         const authHeader = await authStore.getAuthHeader()
         const res = await axios.get<Lobby[]>(`${API_SERVER}/match/lobbies`, authHeader)
@@ -39,5 +46,5 @@ export const useMatchStore = defineStore('match', () => {
         return res.data
     }
 
-    return { createMatch, getAllOpenLobbies, joinLobby, getCurrentInProgressMatches }
+    return { createMatch, getAllOpenLobbies, joinLobby, getCurrentInProgressMatches, getMatch }
 })

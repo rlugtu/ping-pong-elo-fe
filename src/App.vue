@@ -10,7 +10,7 @@
     <Navbar v-if="user" class="fixed bottom-0 w-full bg-gray-600 h-16"></Navbar>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { useUserStore } from './stores/user'
 import { useAuthStore } from './stores/auth'
 import Navbar from '@/components/Navbar.vue'

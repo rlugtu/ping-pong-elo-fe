@@ -9,17 +9,14 @@
             >
                 {{ user.firstName }}
                 {{ user.lastName }}
-                {{ user.elo }}
             </div>
             <div class="flex justify-center">VS</div>
             <div class="flex justify-between items-center">
                 <div>
                     <h1>{{ user.firstName }}</h1>
-                    <h1>{{ user.department }}sdsds</h1>
+                    <h1>{{ user.department }}</h1>
                 </div>
-                <div>
-                    <h2>{{ user.elo }}</h2>
-                </div>
+                <div></div>
             </div>
         </div>
 

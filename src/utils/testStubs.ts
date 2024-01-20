@@ -6,7 +6,6 @@ export const testUser: User = {
     id: 'id',
     firstName: 'firstName',
     lastName: 'lastName',
-    elo: 1400,
     email: 'email',
     department: null
 }

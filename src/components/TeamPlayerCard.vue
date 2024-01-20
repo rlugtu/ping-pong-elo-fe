@@ -4,7 +4,7 @@
             <div v-for="(user, i) of team.users" :key="i">
                 {{ user.firstName }}
                 {{ user.lastName }}
-                {{ user.elo }}
+                {{ team.elo }}
             </div>
         </div>
         <h1 class="text-2xl">{{ playerScore }}</h1>
