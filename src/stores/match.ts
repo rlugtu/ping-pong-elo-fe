@@ -1,47 +1,34 @@
 import { defineStore } from 'pinia'
 import type { Lobby, Match, MatchSetup } from '@/types/match'
-import { API_SERVER } from '@/utils/globals'
-import { useAuthStore } from './auth'
-import axios from 'axios'
+import apiClient from '@/api-client/api-client'
 
 export const useMatchStore = defineStore('match', () => {
-    const authStore = useAuthStore()
-
     async function createMatch(match: MatchSetup): Promise<Match> {
-        const authHeader = await authStore.getAuthHeader()
-        const res = await axios.post<Match>(`${API_SERVER}/match`, match, authHeader)
+        const res = await apiClient.post<Match>('/match', match)
 
         return res.data
     }
 
     async function getMatch(id: string): Promise<Match> {
-        const authHeader = await authStore.getAuthHeader()
-        const res = await axios.get<Match>(`${API_SERVER}/match/${id}`, authHeader)
+        const res = await apiClient.get<Match>(`/match/${id}`)
 
         return res.data
     }
 
     async function getAllOpenLobbies(): Promise<Lobby[]> {
-        const authHeader = await authStore.getAuthHeader()
-        const res = await axios.get<Lobby[]>(`${API_SERVER}/match/lobbies`, authHeader)
+        const res = await apiClient.get<Lobby[]>('/match/lobbies')
 
         return res.data
     }
 
     async function getCurrentInProgressMatches(): Promise<Match[]> {
-        const authHeader = await authStore.getAuthHeader()
-        const res = await axios.get<Match[]>(`${API_SERVER}/match/in-progress`, authHeader)
+        const res = await apiClient.get<Match[]>('/match/in-progress')
 
         return res.data
     }
 
     async function joinLobby(matchId: string, teamInfo: { teamB: string[] }): Promise<Match> {
-        const authHeader = await authStore.getAuthHeader()
-        const res = await axios.patch<Match>(
-            `${API_SERVER}/match/${matchId}/join`,
-            teamInfo,
-            authHeader
-        )
+        const res = await apiClient.patch<Match>(`/match/${matchId}/join`, teamInfo)
 
         return res.data
     }
