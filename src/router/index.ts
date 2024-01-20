@@ -3,7 +3,8 @@ import HomeView from '../views/HomeView.vue'
 import Callback from '../views/Callback.vue'
 import Profile from '../views/Profile.vue'
 import { authGuard } from '@auth0/auth0-vue'
-import LobbiesVue from '@/views/Lobbies.vue'
+import Lobbies from '@/views/Lobbies.vue'
+import Match from '@/views/Match.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,7 +30,13 @@ const router = createRouter({
         {
             path: '/lobbies',
             name: 'lobbies',
-            component: LobbiesVue,
+            component: Lobbies,
+            beforeEnter: authGuard
+        },
+        {
+            path: '/match/:id',
+            name: 'match',
+            component: Match,
             beforeEnter: authGuard
         }
     ]

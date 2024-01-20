@@ -1,0 +1,27 @@
+<template>
+    <div class="flex justify-between items-center">
+        <div class="flex items-center w-full">
+            <span class="w-[20%] flex items-center justify-center">{{ match.teamAScore }} 0</span>
+            <div class="flex flex-col">
+                <h2>{{ match.teamA.users[0].firstName }}</h2>
+                <p>ELO</p>
+            </div>
+        </div>
+        <span>VS</span>
+        <div class="flex items-center justify-end w-full">
+            <div class="flex flex-col">
+                <h2>{{ match.teamB.users[0].firstName }}</h2>
+                <p>ELO</p>
+            </div>
+            <span class="w-[20%] flex items-center justify-center">{{ match.teamBScore }} 0</span>
+        </div>
+    </div>
+</template>
+
+<script lang="ts" setup>
+interface MatchConfig {
+    match: Match
+}
+import { type Match } from '@/types/match'
+const { match } = defineProps<MatchConfig>()
+</script>

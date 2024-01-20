@@ -7,26 +7,10 @@
         <div class="px-2" v-else>
             <div class="flex flex-col gap-2">
                 <h1 class="text-xl">My Live Matches</h1>
-                <div
-                    class="bg-gray-500 px-4 py-2 rounded flex items-center justify-between relative"
-                    v-for="(match, i) of inProgressMatches"
-                    :key="i"
-                >
-                    <div>
-                        <div class="flex flex-col">
-                            <h2>{{ match.teamA.users[0].firstName }}</h2>
-                            <p>ELO</p>
-                        </div>
-                        <span>{{ match.teamAScore }}</span>
-                    </div>
-                    <span>VS</span>
-                    <div>
-                        <div class="flex flex-col">
-                            <h2>{{ match.teamB.users[0].firstName }}</h2>
-                            <p>ELO</p>
-                        </div>
-                        <span>{{ match.teamBScore }}</span>
-                    </div>
+                <div v-for="(match, i) of inProgressMatches" :key="i">
+                    <router-link :to="`match/${match.id}`">
+                        <MatchCard :match="match" class="bg-gray-500 p-2 rounded"></MatchCard>
+                    </router-link>
                 </div>
             </div>
             <div class="flex flex-col gap-2 mt-6">
@@ -42,7 +26,7 @@
                     </div>
 
                     <button
-                        class="bg-blue-400 w-[100px] rounded absolute right-0 h-full"
+                        class="bg-blue-400 w-[100px] rounded rounded-l-none absolute right-0 h-full"
                         @click="toggleJoinLobby(lobby)"
                     >
                         Join
@@ -79,6 +63,7 @@ import CreateMatch from '@/components/CreateMatch.vue'
 import JoinLobby from '@/components/JoinLobby.vue'
 import Modal from '@/components/Modal.vue'
 import LoadingScreen from '@/components/LoadingScreen.vue'
+import MatchCard from '@/components/MatchCard.vue'
 import { useMatchStore } from '@/stores/match'
 import type { MatchSetup } from '@/types/match'
 import { useUserStore } from '../stores/user'
