@@ -3,7 +3,7 @@ import { useAuth0 } from '@auth0/auth0-vue'
 import axios from 'axios'
 import { API_SERVER } from '@/utils/globals'
 import { ref } from 'vue'
-import type { User } from '@/types/users'
+import type { CreateUser, User } from '@/types/users'
 import { useAuthStore } from './auth'
 
 export const useUserStore = defineStore('user', () => {
@@ -19,24 +19,12 @@ export const useUserStore = defineStore('user', () => {
         return res.data
     }
 
-    async function createUser(info: User): Promise<User> {
+    async function createUser(info: CreateUser): Promise<User> {
         const authHeader = await useAuthStore().getAuthHeader()
         const res = await axios.post<User>(`${API_SERVER}/users`, info, authHeader)
 
         return res.data
     }
 
-    async function getUserNameById(
-        userId: string
-    ): Promise<{ firstName: string; lastName: string; id: string }> {
-        const res = await axios.get<User>(`${API_SERVER}/users/${userId}/name`, {
-            headers: { Authorization: `Bearer ${await getAccessTokenSilently()}` }
-        })
-
-        user.value = res.data
-
-        return res.data
-    }
-
-    return { user, getUser, createUser, getUserNameById }
+    return { user, getUser, createUser }
 })

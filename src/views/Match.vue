@@ -24,8 +24,9 @@ import { useRoute } from 'vue-router'
 import router from '@/router'
 
 const matchStore = useMatchStore()
-const match = ref<Match | null>(null)
+
 const loading = ref(false)
+const match = ref<Match | null>(null)
 
 onMounted(async () => {
     try {

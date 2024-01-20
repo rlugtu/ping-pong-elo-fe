@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { User as Auth0User, useAuth0 } from '@auth0/auth0-vue'
-import type { User } from '@/types/users'
+import type { CreateUser } from '@/types/users'
 
 export interface AuthHeader {
     headers: {
@@ -19,7 +19,7 @@ export const useAuthStore = defineStore('auth', () => {
         })
     }
 
-    function createUserFromGoogleUser(user: Auth0User): User {
+    function createUserFromGoogleUser(user: Auth0User): CreateUser {
         return {
             id: user.sub || '',
             firstName: user?.given_name || 'first',

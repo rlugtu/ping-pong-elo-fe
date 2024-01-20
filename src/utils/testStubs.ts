@@ -7,7 +7,8 @@ export const testUser: User = {
     firstName: 'firstName',
     lastName: 'lastName',
     email: 'email',
-    department: null
+    department: null,
+    eloHistory: []
 }
 
 export const testTeam: Team = {
@@ -21,6 +22,7 @@ export const testMatch: Match = {
     teamA: testTeam,
     teamAScore: 0,
     teamB: testTeam,
+    mode: 'SINGLES',
     teamBScore: 0,
     winner: null,
     winningScore: 11,

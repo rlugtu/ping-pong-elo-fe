@@ -69,16 +69,15 @@ import type { MatchSetup } from '@/types/match'
 import { useUserStore } from '../stores/user'
 import { type Match, type Lobby } from '../types/match'
 
-const loading = ref(true)
+const matchStore = useMatchStore()
+const user = useUserStore().user
 
+const loading = ref(true)
 const lobbies = ref<Lobby[]>([])
 const creatingMatch = ref(false)
 const joiningLobby = ref(false)
 const selectedLobby = ref<Lobby | null>(null)
-
 const inProgressMatches = ref<Match[]>([])
-
-const matchStore = useMatchStore()
 
 function toggleCreateMatch(): void {
     creatingMatch.value = !creatingMatch.value
@@ -94,7 +93,6 @@ function cancelJoinLobby(): void {
     joiningLobby.value = false
 }
 
-const user = useUserStore().user
 async function createMatch(match: MatchSetup): Promise<void> {
     try {
         if (user?.id) {
@@ -116,9 +114,8 @@ async function joinMatch(): Promise<void> {
             return
         }
         const { id } = user
-        selectedLobby.value.teamB
-        const usersToAdd = selectedLobby.value.teamB?.users.map((user) => user.id) ?? []
 
+        const usersToAdd = selectedLobby.value.teamB?.users.map((user) => user.id) ?? []
         usersToAdd.push(id)
 
         await matchStore.joinLobby(selectedLobby.value.id, {
