@@ -32,3 +32,8 @@ export type MatchState = 'IN_PROGRESS' | 'COMPLETE' | 'SETUP'
 export type Lobby = Pick<Match, 'id' | 'teamA' | 'winningScore'> & {
     teamB: Team | null
 }
+
+export interface MatchScoreData {
+    teamId: string
+    score: number
+}
