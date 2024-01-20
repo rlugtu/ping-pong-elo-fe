@@ -1,4 +1,4 @@
-import type { Team } from './team'
+import type { MatchTeam, Team } from './team'
 
 export type MatchMode = 'SINGLES' | 'DOUBLES'
 
@@ -16,10 +16,8 @@ export interface MatchSetup {
 export interface Match extends Omit<MatchSetup, 'teamA'> {
     id: string
     state: MatchState
-    teamA: Team
-    teamAScore: number
-    teamB: Team
-    teamBScore: number
+    teamA: MatchTeam
+    teamB: MatchTeam
     winner: WinningTeam
     winningScore: MatchWinningScore
     createdAt: Date

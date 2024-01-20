@@ -8,8 +8,21 @@
             <h1>Live Match</h1>
 
             <div class="flex flex-col items-center justify-center">
-                <div>Opposing Team</div>
-                <div>User Team</div>
+                <div>
+                    <h2>Opposing Team</h2>
+                    <h3>{{ match.teamA.elo }}</h3>
+                    <div v-for="(user, i) in match.teamA.users" :key="i">
+                        <p>{{ user.firstName }}</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h2>User Team</h2>
+                    <h3>{{ match.teamA.elo }}</h3>
+                    <div v-for="(user, i) in match.teamA.users" :key="i">
+                        <p>{{ user.firstName }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
