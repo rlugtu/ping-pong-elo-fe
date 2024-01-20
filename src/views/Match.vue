@@ -1,5 +1,5 @@
 <template>
-    <main>
+    <main class="p-2">
         <LoadingScreen
             v-if="loading || match === null"
             class="flex justify-center mt-[40%]"

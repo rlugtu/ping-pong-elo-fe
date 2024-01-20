@@ -7,13 +7,6 @@ import axios from 'axios'
 export const useMatchStore = defineStore('match', () => {
     const authStore = useAuthStore()
 
-    async function createMatch(match: MatchSetup): Promise<Match> {
-        const authHeader = await authStore.getAuthHeader()
-        const res = await axios.post<Match>(`${API_SERVER}/match`, match, authHeader)
-
-        return res.data
-    }
-
     async function getMatch(id: string): Promise<Match> {
         const authHeader = await authStore.getAuthHeader()
         const res = await axios.get<Match>(`${API_SERVER}/match/${id}`, authHeader)
@@ -21,9 +14,16 @@ export const useMatchStore = defineStore('match', () => {
         return res.data
     }
 
-    async function getAllOpenLobbies(): Promise<Lobby[]> {
+    async function getInProgressMatches(): Promise<Match[]> {
         const authHeader = await authStore.getAuthHeader()
-        const res = await axios.get<Lobby[]>(`${API_SERVER}/match/lobbies`, authHeader)
+        const res = await axios.get<Match[]>(`${API_SERVER}/match/in-progress`, authHeader)
+
+        return res.data
+    }
+
+    async function createMatch(match: MatchSetup): Promise<Match> {
+        const authHeader = await authStore.getAuthHeader()
+        const res = await axios.post<Match>(`${API_SERVER}/match`, match, authHeader)
 
         return res.data
     }
@@ -36,9 +36,9 @@ export const useMatchStore = defineStore('match', () => {
         return res.data
     }
 
-    async function getCurrentInProgressMatches(): Promise<Match[]> {
+    async function getAllOpenLobbies(): Promise<Lobby[]> {
         const authHeader = await authStore.getAuthHeader()
-        const res = await axios.get<Match[]>(`${API_SERVER}/match/in-progress`, authHeader)
+        const res = await axios.get<Lobby[]>(`${API_SERVER}/match/lobbies`, authHeader)
 
         return res.data
     }
@@ -58,7 +58,7 @@ export const useMatchStore = defineStore('match', () => {
         createMatch,
         getAllOpenLobbies,
         joinLobby,
-        getCurrentInProgressMatches,
+        getInProgressMatches,
         getMatch,
         updateMatchScore
     }

@@ -132,7 +132,7 @@ onMounted(async () => {
     try {
         lobbies.value = await matchStore.getAllOpenLobbies()
 
-        inProgressMatches.value = await matchStore.getCurrentInProgressMatches()
+        inProgressMatches.value = await matchStore.getInProgressMatches()
     } catch (error) {}
     loading.value = false
 })
