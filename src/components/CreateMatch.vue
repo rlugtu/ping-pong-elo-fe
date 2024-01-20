@@ -2,6 +2,23 @@
     <div class="p-4">
         <h1 class="text-2xl">Create Match</h1>
         <div class="mt-8 grid grid-cols-2">
+            <h1 class="col-span-2 text-center mb-4">Mode</h1>
+            <button
+                class="col-span-1 h-12"
+                :class="matchSetup.winningScore === 11 && 'rounded bg-blue-600'"
+                @click="setMatchMode('1v1')"
+            >
+                1v1
+            </button>
+            <button
+                class="col-span-1 h-12"
+                :class="matchSetup.winningScore === 21 && 'rounded bg-blue-600'"
+                @click="setMatchMode('2v2')"
+            >
+                2v2
+            </button>
+        </div>
+        <div class="mt-8 grid grid-cols-2">
             <h1 class="col-span-2 text-center mb-4">Set Winning Score</h1>
             <button
                 class="col-span-1 h-12"
@@ -26,11 +43,12 @@
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { type MatchWinningScore, type MatchSetup } from '../types/match'
+import { type MatchWinningScore, type MatchSetup, type MatchMode } from '../types/match'
 
 const matchSetup = ref<MatchSetup>({
     teamA: [],
-    winningScore: 11
+    winningScore: 11,
+    mode: '1v1'
 })
 
 const emit = defineEmits<{
@@ -44,6 +62,10 @@ function cancel(): void {
 
 function setWinningScore(score: MatchWinningScore): void {
     matchSetup.value.winningScore = score
+}
+
+function setMatchMode(mode: MatchMode): void {
+    matchSetup.value.mode = mode
 }
 
 function submitCreateMatch(): void {

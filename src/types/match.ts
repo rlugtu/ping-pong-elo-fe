@@ -1,5 +1,7 @@
 import type { Team } from './team'
 
+export type MatchMode = '1v1' | '2v2'
+
 export interface Match {
     id: string
     state: MatchState
@@ -20,6 +22,7 @@ export type MatchState = 'IN_PROGRESS' | 'COMPLETE' | 'SETUP'
 
 export type MatchSetup = Pick<Match, 'winningScore'> & {
     teamA: string[]
+    mode: MatchMode
 }
 
 export type Lobby = Pick<Match, 'id' | 'teamA' | 'winningScore'> & {
