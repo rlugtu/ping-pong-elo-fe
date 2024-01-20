@@ -5,14 +5,14 @@
             <h1 class="col-span-2 text-center mb-4">Mode</h1>
             <button
                 class="col-span-1 h-12"
-                :class="matchSetup.winningScore === 11 && 'rounded bg-blue-600'"
+                :class="matchSetup.mode === 'SINGLES' && 'rounded bg-blue-600'"
                 @click="setMatchMode('SINGLES')"
             >
                 1v1
             </button>
             <button
                 class="col-span-1 h-12"
-                :class="matchSetup.winningScore === 21 && 'rounded bg-blue-600'"
+                :class="matchSetup.mode === 'DOUBLES' && 'rounded bg-blue-600'"
                 @click="setMatchMode('DOUBLES')"
             >
                 2v2
