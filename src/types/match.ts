@@ -1,6 +1,6 @@
 import type { Team } from './team'
 
-export type MatchMode = '1v1' | '2v2'
+export type MatchMode = 'SINGLES' | 'DOUBLES'
 
 export interface Match {
     id: string

@@ -6,14 +6,14 @@
             <button
                 class="col-span-1 h-12"
                 :class="matchSetup.winningScore === 11 && 'rounded bg-blue-600'"
-                @click="setMatchMode('1v1')"
+                @click="setMatchMode('SINGLES')"
             >
                 1v1
             </button>
             <button
                 class="col-span-1 h-12"
                 :class="matchSetup.winningScore === 21 && 'rounded bg-blue-600'"
-                @click="setMatchMode('2v2')"
+                @click="setMatchMode('DOUBLES')"
             >
                 2v2
             </button>
@@ -48,7 +48,7 @@ import { type MatchWinningScore, type MatchSetup, type MatchMode } from '../type
 const matchSetup = ref<MatchSetup>({
     teamA: [],
     winningScore: 11,
-    mode: '1v1'
+    mode: 'SINGLES'
 })
 
 const emit = defineEmits<{
