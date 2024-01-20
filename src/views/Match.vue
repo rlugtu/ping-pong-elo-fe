@@ -15,7 +15,7 @@
                         <p>{{ user.firstName }}</p>
                     </div>
 
-                    <div class="flex items-center justify-center">
+                    <div class="flex gap-2 items-center">
                         <button
                             class="p-4 w-[100px]"
                             @click="updateTeamScore('a', 'subtract')"
