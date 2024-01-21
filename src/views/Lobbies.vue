@@ -9,7 +9,7 @@
                 <h1 class="text-xl">My Live Matches</h1>
                 <div v-for="(match, i) of inProgressMatches" :key="i">
                     <router-link :to="`match/${match.id}`">
-                        <MatchCard :match="match" class="bg-gray-500 p-2 rounded"></MatchCard>
+                        <MatchCard :match="match" class="bg-gray-300 p-2 rounded"></MatchCard>
                     </router-link>
                 </div>
             </div>
