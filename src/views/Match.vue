@@ -6,7 +6,7 @@
         ></LoadingScreen>
         <div v-else class="text-slate-300">
             <h1 class="text-3xl text-gray-300">Live Match</h1>
-            <div class="grid grid-rows-3 p-4 w-full min-h-[700px]">
+            <div class="grid grid-rows-3 gap-6 p-4 w-full min-h-[700px]">
                 <div>
                     <h2 class="text-center">Opposing Team</h2>
 
@@ -25,7 +25,11 @@
                                 -
                             </button>
                             <p
-                                class="p-4 w-[75px] h-[75px] flex justify-center items-center text-3xl justify-self-center"
+                                class="p-4 w-[75px] h-[75px] flex justify-center items-center text-6xl justify-self-center"
+                                :class="
+                                    teamAScore >= match.winningScore &&
+                                    'animate-bounce text-green-500'
+                                "
                             >
                                 {{ teamAScore }}
                             </p>
@@ -55,7 +59,10 @@
                             -
                         </button>
                         <p
-                            class="p-4 w-[75px] h-[75px] flex justify-center items-center text-3xl justify-self-center"
+                            class="p-4 w-[75px] h-[75px] flex justify-center items-center text-6xl justify-self-center"
+                            :class="[
+                                teamBScore >= match.winningScore && 'animate-bounce text-green-500'
+                            ]"
                         >
                             {{ teamBScore }}
                         </p>
