@@ -22,8 +22,8 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-6">
-                <h1 class="text-xl text-slate-400 font-bold">Recent Matches</h1>
+            <div class="mt-12">
+                <h1 class="text-xl text-blue-500">Recent Matches</h1>
                 <div class="mt-2 flex flex-col gap-4">
                     <MatchSummaryCard
                         v-for="(match, index) of recentMatches"
