@@ -1,13 +1,12 @@
 <template>
-    <header class="h-[100px] p-2 font-semibold text-slate-300 flex items-center">
-        <h1 class="text-6xl">Ping Pong</h1>
-    </header>
+    <h1 class="p-2 text-slate-300 text-6xl font-semibold h-[70px]">Ping Pong</h1>
+
     <LoadingScreen
         v-if="!user"
         class="absolute top-0 h-screen w-screen flex justify-center items-center"
     ></LoadingScreen>
-    <RouterView v-else class="font-sans bg-gray-900" :class="bodyHeightWithoutHeaderOrNav" />
-    <Navbar v-if="user" class="fixed bottom-0 w-full bg-slate-700 h-16"></Navbar>
+    <RouterView v-else class="font-sans bg-gray-900 pt-12" />
+    <Navbar v-if="user" class="fixed bottom-0 w-full bg-slate-700 h-[70px]"></Navbar>
 </template>
 
 <script lang="ts" setup>

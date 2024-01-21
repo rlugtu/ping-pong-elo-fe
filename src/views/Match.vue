@@ -2,51 +2,65 @@
     <main class="p-2">
         <LoadingScreen
             v-if="loading || match === null"
-            class="flex justify-center mt-[40%]"
+            class="flex justify-center mt-[50%]"
         ></LoadingScreen>
-        <div v-else>
-            <h1>Live Match</h1>
-
-            <div class="flex flex-col items-center justify-center">
+        <div v-else class="text-slate-300 mt-6">
+            <h1 class="text-3xl text-gray-300">Live Match</h1>
+            <div class="grid grid-rows-3 p-4 w-full min-h-[800px]">
                 <div>
-                    <h2>Opposing Team</h2>
-                    <h3>{{ match.teamA.elo }}</h3>
-                    <div v-for="(user, i) in match.teamA.users" :key="i">
-                        <p>{{ user.firstName }}</p>
-                    </div>
+                    <h2 class="text-center">Opposing Team</h2>
 
-                    <div class="flex gap-2 items-center">
-                        <button
-                            class="p-4 w-[100px]"
-                            @click="updateTeamScore('a', 'subtract')"
-                            :disabled="teamAScore <= 0"
-                        >
-                            -
-                        </button>
-                        <p>{{ teamAScore }}</p>
-                        <button class="p-4 w-[100px]" @click="updateTeamScore('a', 'add')">
-                            +
-                        </button>
+                    <div class="w-full">
+                        <div v-for="(user, i) in match.teamA.users" :key="i">
+                            <p>{{ user.firstName }}</p>
+                        </div>
+                        <h3>{{ match.teamA.elo }}</h3>
+
+                        <div class="grid grid-cols-3 mt-6">
+                            <button
+                                class="p-4 w-[75px] h-[75px] border rounded-full border-red-600 text-3xl text-red-600 col-span-1 justify-self-center"
+                                @click="updateTeamScore('a', 'subtract')"
+                                :disabled="teamAScore <= 0"
+                            >
+                                -
+                            </button>
+                            <p
+                                class="p-4 w-[75px] h-[75px] flex justify-center items-center text-3xl justify-self-center"
+                            >
+                                {{ teamAScore }}
+                            </p>
+                            <button
+                                class="p-4 w-[75px] h-[75px] border rounded-full border-green-600 text-3xl text-green-600 col-span-1 justify-self-center"
+                                @click="updateTeamScore('a', 'add')"
+                                :disabled="teamAScore >= match.winningScore"
+                            >
+                                +
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <div>
-                    <h2>User Team</h2>
-                    <h3>{{ match.teamB.elo }}</h3>
+                    <h2 class="text-center">User Team</h2>
                     <div v-for="(user, i) in match.teamA.users" :key="i">
                         <p>{{ user.firstName }}</p>
+                        <h3>{{ match.teamB.elo }}</h3>
                     </div>
-                    <div class="flex gap-2 items-center">
+                    <div class="grid grid-cols-3 mt-6">
                         <button
-                            class="p-4 w-[100px]"
+                            class="p-4 w-[75px] h-[75px] border rounded-full border-red-600 text-3xl text-red-600 col-span-1 justify-self-center"
                             @click="updateTeamScore('b', 'subtract')"
                             :disabled="teamBScore <= 0"
                         >
                             -
                         </button>
-                        <p>{{ teamBScore }}</p>
+                        <p
+                            class="p-4 w-[75px] h-[75px] flex justify-center items-center text-3xl justify-self-center"
+                        >
+                            {{ teamBScore }}
+                        </p>
                         <button
-                            class="p-4 w-[100px]"
+                            class="p-4 w-[75px] h-[75px] border rounded-full border-green-600 text-3xl text-green-600 col-span-1 justify-self-center"
                             @click="updateTeamScore('b', 'add')"
                             :disabled="teamBScore >= match.winningScore"
                         >
@@ -55,7 +69,7 @@
                     </div>
                 </div>
 
-                <div>
+                <div class="flex justify-center items-center">
                     <button
                         class="w-[200px] bg-blue-500 rounded p-4 h-[50px] flex justify-center items-center"
                         @click="submitUpdateTeamScore(match.teamA.id, match.teamB.id)"
@@ -75,7 +89,6 @@ import { onMounted, ref } from 'vue'
 import { useMatchStore } from '@/stores/match'
 import { useRoute } from 'vue-router'
 import router from '@/router'
-
 const matchStore = useMatchStore()
 
 const loading = ref(false)

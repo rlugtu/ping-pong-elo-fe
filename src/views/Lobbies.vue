@@ -1,6 +1,6 @@
 <template>
     <main class="p-2">
-        <LoadingScreen v-if="loading" class="mt-[40%]"></LoadingScreen>
+        <LoadingScreen v-if="loading" class="mt-[50%]"></LoadingScreen>
         <div class="px-2" v-else>
             <div class="flex flex-col gap-2">
                 <h1 class="text-xl text-slate-300 font-bold">My Live Matches</h1>
