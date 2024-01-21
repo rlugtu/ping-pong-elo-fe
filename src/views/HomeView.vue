@@ -4,7 +4,7 @@
 
         <div v-else>
             <div>
-                <h1 class="text-xl text-slate-300 font-bold">Rankings</h1>
+                <h1 class="text-xl text-orange-500">Rankings</h1>
 
                 <div class="mt-3">
                     <div
@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="mt-6">
-                <h1 class="text-xl text-slate-300 font-bold">Recent Matches</h1>
+                <h1 class="text-xl text-slate-400 font-bold">Recent Matches</h1>
                 <div class="mt-2 flex flex-col gap-4">
                     <MatchSummaryCard
                         v-for="(match, index) of recentMatches"
