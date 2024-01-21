@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col rounded">
         <div
-            class="flex justify-between items-center px-4 py-4 bg-sky-900 rounded-t border-b-0 text-white font-bold"
+            class="flex justify-between items-center px-4 py-4 bg-orange-600 rounded-t border-b-0 text-white font-bold"
         >
             <h2 class="">{{ match.createdAt.toString() }}</h2>
             <h2>Up to: {{ match.winningScore }}</h2>

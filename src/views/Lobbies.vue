@@ -6,7 +6,10 @@
                 <h1 class="text-xl text-slate-300 font-bold">My Live Matches</h1>
                 <div v-for="(match, i) of inProgressMatches" :key="i">
                     <router-link :to="`match/${match.id}`">
-                        <MatchCard :match="match" class="bg-gray-300 rounded"></MatchCard>
+                        <MatchCard
+                            :match="match"
+                            class="border border-blue-500 rounded-lg"
+                        ></MatchCard>
                     </router-link>
                 </div>
             </div>
@@ -31,7 +34,10 @@
                 </div>
             </div>
             <div class="absolute left-0 bottom-[110px] w-full flex justify-center">
-                <button @click="toggleCreateMatch" class="bg-blue-400 w-[200px] p-4 rounded">
+                <button
+                    @click="toggleCreateMatch"
+                    class="bg-orange-500 w-[200px] p-4 rounded text-white font-bold"
+                >
                     Create Match
                 </button>
             </div>

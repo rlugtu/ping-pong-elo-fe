@@ -6,11 +6,11 @@
             <div>
                 <h1 class="text-xl text-slate-300 font-bold">Rankings</h1>
 
-                <div class="mt-2">
+                <div class="mt-3">
                     <div
                         v-for="(team, i) in rankings.SINGLES"
                         :key="i"
-                        class="py-4 px-3 mt-2 bg-slate-300 flex items-center justify-between"
+                        class="py-4 mt-2 flex items-center justify-between text-orange-500 text-xl border-t border-t-orange-500"
                     >
                         <div class="flex items-center gap-2">
                             <span class="font-bold">{{ i + 1 }}</span>
@@ -18,7 +18,7 @@
                                 <h2>{{ user.firstName }} {{ user.lastName }}</h2>
                             </div>
                         </div>
-                        <p class="font-bold text-lg">{{ team.elo }}</p>
+                        <p>{{ team.elo }}</p>
                     </div>
                 </div>
             </div>

@@ -5,7 +5,7 @@
             <h1 class="text-3xl text-gray-300">Live Match</h1>
             <div class="grid grid-rows-5 p-4 w-full min-h-[600px]">
                 <div class="flex flex-col justify-center items-centers row-span-2">
-                    <div class="flex justify-between pb-4 border-b border-b-red-500">
+                    <div class="flex justify-between pb-4 border-b border-b-orange-500">
                         <div v-for="(user, i) in match.teamA.users" :key="i">
                             <p class="text-2xl">{{ user.firstName }}</p>
                         </div>
@@ -16,7 +16,7 @@
 
                     <div class="grid grid-cols-3 mt-12">
                         <button
-                            class="p-4 w-[75px] h-[75px] border rounded-full border-red-600 text-3xl text-red-600 col-span-1 justify-self-center"
+                            class="p-4 w-[75px] h-[75px] border rounded-full border-orange-600 text-3xl text-orange-600 col-span-1 justify-self-center"
                             @click="updateTeamScore('a', 'subtract')"
                             :disabled="teamAScore <= 0"
                         >
@@ -31,7 +31,7 @@
                             {{ teamAScore }}
                         </p>
                         <button
-                            class="p-4 w-[75px] h-[75px] border rounded-full border-green-600 text-3xl text-green-600 col-span-1 justify-self-center"
+                            class="p-4 w-[75px] h-[75px] border rounded-full border-blue-600 text-3xl text-blue-600 col-span-1 justify-self-center"
                             @click="updateTeamScore('a', 'add')"
                             :disabled="teamAScore >= match.winningScore"
                         >
@@ -40,12 +40,16 @@
                     </div>
                 </div>
 
-                <div class="row-span-1 flex justify-center items-center text-xl font-bold">VS</div>
+                <div
+                    class="row-span-1 flex justify-center items-center text-xl font-bold text-slate-300"
+                >
+                    VS
+                </div>
 
                 <div class="flex flex-col justify-center items-centers row-span-2">
                     <div class="grid grid-cols-3">
                         <button
-                            class="p-4 w-[75px] h-[75px] border rounded-full border-red-600 text-3xl text-red-600 col-span-1 justify-self-center"
+                            class="p-4 w-[75px] h-[75px] border rounded-full border-orange-600 text-3xl text-orange-600 col-span-1 justify-self-center"
                             @click="updateTeamScore('b', 'subtract')"
                             :disabled="teamBScore <= 0"
                         >
@@ -60,7 +64,7 @@
                             {{ teamBScore }}
                         </p>
                         <button
-                            class="p-4 w-[75px] h-[75px] border rounded-full border-green-600 text-3xl text-green-600 col-span-1 justify-self-center"
+                            class="p-4 w-[75px] h-[75px] border rounded-full border-blue-600 text-3xl text-blue-600 col-span-1 justify-self-center"
                             @click="updateTeamScore('b', 'add')"
                             :disabled="teamBScore >= match.winningScore"
                         >
@@ -68,7 +72,7 @@
                         </button>
                     </div>
 
-                    <div class="mt-12 flex justify-between border-t border-t-green-500 pt-4">
+                    <div class="mt-12 flex justify-between border-t border-t-blue-500 pt-4">
                         <h3 class="text-xl">
                             {{ match.teamB.elo }}
                         </h3>
