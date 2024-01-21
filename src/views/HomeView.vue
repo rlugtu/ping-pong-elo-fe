@@ -10,7 +10,7 @@
                     <div
                         v-for="(team, i) in rankings.SINGLES"
                         :key="i"
-                        class="py-4 px-3 mt-2 bg-slate-300 flex items-center justify-between rounded"
+                        class="py-4 px-3 mt-2 bg-slate-300 flex items-center justify-between"
                     >
                         <div class="flex items-center gap-2">
                             <span class="font-bold">{{ i + 1 }}</span>
@@ -18,7 +18,7 @@
                                 <h2>{{ user.firstName }} {{ user.lastName }}</h2>
                             </div>
                         </div>
-                        <p>{{ team.elo }}</p>
+                        <p class="font-bold text-lg">{{ team.elo }}</p>
                     </div>
                 </div>
             </div>
