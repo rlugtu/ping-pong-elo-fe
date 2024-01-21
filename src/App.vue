@@ -1,5 +1,5 @@
 <template>
-    <header class="h-[100px] p-2 bg-slate-700 font-semibold text-slate-300 flex items-center">
+    <header class="h-[100px] p-2 font-semibold text-slate-300 flex items-center">
         <h1 class="text-6xl">Ping Pong</h1>
     </header>
     <LoadingScreen
