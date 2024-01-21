@@ -3,7 +3,7 @@
         <LoadingScreen v-if="loading" class="mt-[30vh]"></LoadingScreen>
         <div v-else>
             <div class="flex flex-col gap-2">
-                <h1 class="text-xl text-slate-300 font-bold pb-2">My Live Matches</h1>
+                <h1 class="text-xl text-slate-300 font-bold pb-2 text-blue-500">My Live Matches</h1>
                 <div v-for="(match, i) of inProgressMatches" :key="i">
                     <router-link :to="`match/${match.id}`">
                         <MatchCard
@@ -13,10 +13,10 @@
                     </router-link>
                 </div>
             </div>
-            <div class="flex flex-col gap-2 mt-6 pb-[190px]">
-                <h1 class="text-xl text-slate-300 font-bold">Open Lobbies</h1>
+            <div class="flex flex-col gap-2 mt-12 pb-[190px]">
+                <h1 class="text-xl font-bold text-orange-500">Open Lobbies</h1>
                 <div
-                    class="bg-gray-500 pl-4 py-2 rounded flex items-center justify-between relative"
+                    class="border border-orange-500 pl-4 py-2 rounded flex items-center justify-between relative text-slate-300"
                     v-for="(lobby, i) of lobbies"
                     :key="i"
                 >
@@ -26,7 +26,7 @@
                     </div>
 
                     <button
-                        class="bg-blue-400 w-[100px] rounded rounded-l-none absolute right-0 h-full"
+                        class="bg-orange-500 w-[100px] rounded rounded-l-none absolute right-0 h-full text-white font-bold"
                         @click="toggleJoinLobby(lobby)"
                     >
                         Join
