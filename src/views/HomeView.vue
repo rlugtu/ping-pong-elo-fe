@@ -6,7 +6,7 @@
             <div>
                 <h1 class="text-xl text-orange-500">Rankings</h1>
 
-                <div class="mt-3">
+                <div class="mt-2">
                     <div
                         v-for="(team, i) in rankings.SINGLES"
                         :key="i"
