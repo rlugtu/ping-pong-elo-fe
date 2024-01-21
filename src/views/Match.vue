@@ -1,9 +1,6 @@
 <template>
     <main class="p-2">
-        <LoadingScreen
-            v-if="loading || match === null"
-            class="flex justify-center mt-[50%]"
-        ></LoadingScreen>
+        <LoadingScreen v-if="loading || match === null" class="mt-[30vh]"></LoadingScreen>
         <div v-else class="text-slate-300">
             <h1 class="text-3xl text-gray-300">Live Match</h1>
             <div class="grid grid-rows-3 gap-6 p-4 w-full min-h-[700px]">

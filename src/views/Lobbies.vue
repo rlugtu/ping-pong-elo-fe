@@ -1,16 +1,16 @@
 <template>
     <main class="p-2">
-        <LoadingScreen v-if="loading" class="mt-[50%]"></LoadingScreen>
+        <LoadingScreen v-if="loading" class="mt-[30vh]"></LoadingScreen>
         <div class="px-2" v-else>
             <div class="flex flex-col gap-2">
                 <h1 class="text-xl text-slate-300 font-bold">My Live Matches</h1>
                 <div v-for="(match, i) of inProgressMatches" :key="i">
                     <router-link :to="`match/${match.id}`">
-                        <MatchCard :match="match" class="bg-gray-300 p-2 rounded"></MatchCard>
+                        <MatchCard :match="match" class="bg-gray-300 rounded"></MatchCard>
                     </router-link>
                 </div>
             </div>
-            <div class="flex flex-col gap-2 mt-6">
+            <div class="flex flex-col gap-2 mt-6 pb-[190px]">
                 <h1 class="text-xl text-slate-300 font-bold">Open Lobbies</h1>
                 <div
                     class="bg-gray-500 pl-4 py-2 rounded flex items-center justify-between relative"
@@ -30,7 +30,7 @@
                     </button>
                 </div>
             </div>
-            <div class="absolute left-0 bottom-20 w-full flex justify-center">
+            <div class="absolute left-0 bottom-[110px] w-full flex justify-center">
                 <button @click="toggleCreateMatch" class="bg-blue-400 w-[200px] p-4 rounded">
                     Create Match
                 </button>
