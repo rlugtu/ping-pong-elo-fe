@@ -1,12 +1,9 @@
 <template>
-    <main>
-        <LoadingScreen
-            v-if="loading"
-            class="flex justify-center items-center mt-[40%]"
-        ></LoadingScreen>
+    <main class="p-2">
+        <LoadingScreen v-if="loading" class="mt-[40%]"></LoadingScreen>
         <div class="px-2" v-else>
             <div class="flex flex-col gap-2">
-                <h1 class="text-xl">My Live Matches</h1>
+                <h1 class="text-xl text-slate-300 font-bold">My Live Matches</h1>
                 <div v-for="(match, i) of inProgressMatches" :key="i">
                     <router-link :to="`match/${match.id}`">
                         <MatchCard :match="match" class="bg-gray-300 p-2 rounded"></MatchCard>
@@ -14,7 +11,7 @@
                 </div>
             </div>
             <div class="flex flex-col gap-2 mt-6">
-                <h1 class="text-xl">Open Lobbies</h1>
+                <h1 class="text-xl text-slate-300 font-bold">Open Lobbies</h1>
                 <div
                     class="bg-gray-500 pl-4 py-2 rounded flex items-center justify-between relative"
                     v-for="(lobby, i) of lobbies"

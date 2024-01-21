@@ -1,13 +1,13 @@
 <template>
-    <header>
-        <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <header class="h-[100px] p-2 bg-slate-700 font-semibold text-slate-300 flex items-center">
+        <h1 class="text-6xl">Ping Pong</h1>
     </header>
     <LoadingScreen
         v-if="!user"
         class="absolute top-0 h-screen w-screen flex justify-center items-center"
     ></LoadingScreen>
-    <RouterView v-else class="font-sans" />
-    <Navbar v-if="user" class="fixed bottom-0 w-full bg-gray-600 h-16"></Navbar>
+    <RouterView v-else class="font-sans bg-gray-900" :class="bodyHeightWithoutHeaderOrNav" />
+    <Navbar v-if="user" class="fixed bottom-0 w-full bg-slate-700 h-16"></Navbar>
 </template>
 
 <script lang="ts" setup>
@@ -15,7 +15,7 @@ import { useUserStore } from './stores/user'
 import { useAuthStore } from './stores/auth'
 import Navbar from '@/components/Navbar.vue'
 import LoadingScreen from '@/components/LoadingScreen.vue'
-import { computed, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 const userStore = useUserStore()
 const authStore = useAuthStore()
@@ -25,6 +25,8 @@ const userId = computed(() => {
 })
 
 const user = computed(() => userStore.user)
+
+const bodyHeightWithoutHeaderOrNav = ref('h-[calc(100vh_-_4rem_-_100px)]')
 
 watch(userId, async (userId) => {
     try {

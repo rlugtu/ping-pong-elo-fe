@@ -1,5 +1,5 @@
 <template>
-    <div class="py-2 px-4 flex justify-between items-center" :class="bgStyles">
+    <div class="py-2 px-4 flex justify-between items-center bg-slate-300">
         <div class="flex flex-col w-[70%]">
             <div v-for="(user, i) of team.users" :key="i">
                 {{ user.firstName }}
@@ -26,7 +26,7 @@ const { team, playerScore, side } = defineProps<Config>()
 const bgStyles = ref<string>('')
 onMounted(() => {
     if (side === 'teamA') {
-        bgStyles.value = 'bg-red-700 bg-opacity-40'
+        bgStyles.value = 'bg-green-700 bg-opacity-40'
     } else {
         bgStyles.value = 'bg-blue-700 bg-opacity-40'
     }
