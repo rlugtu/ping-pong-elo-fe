@@ -4,9 +4,9 @@
             v-if="loading || match === null"
             class="flex justify-center mt-[50%]"
         ></LoadingScreen>
-        <div v-else class="text-slate-300 mt-6">
+        <div v-else class="text-slate-300">
             <h1 class="text-3xl text-gray-300">Live Match</h1>
-            <div class="grid grid-rows-3 p-4 w-full min-h-[800px]">
+            <div class="grid grid-rows-3 p-4 w-full min-h-[700px]">
                 <div>
                     <h2 class="text-center">Opposing Team</h2>
 

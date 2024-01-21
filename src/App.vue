@@ -5,7 +5,7 @@
         v-if="!user"
         class="absolute top-0 h-screen w-screen flex justify-center items-center"
     ></LoadingScreen>
-    <RouterView v-else class="font-sans bg-gray-900 pt-12" />
+    <RouterView v-else class="font-sans bg-gray-900 pt-6" />
     <Navbar v-if="user" class="fixed bottom-0 w-full bg-slate-700 h-[70px]"></Navbar>
 </template>
 
