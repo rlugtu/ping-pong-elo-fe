@@ -3,12 +3,16 @@
         <LoadingScreen v-if="loading || match === null" class="mt-[30vh]"></LoadingScreen>
         <div v-else class="text-slate-300">
             <h1 class="text-3xl text-gray-300">Live Match</h1>
-            <div class="grid grid-rows-2 p-4 w-full min-h-[600px]">
-                <div class="flex flex-col justify-center items-centers">
-                    <div v-for="(user, i) in match.teamA.users" :key="i">
-                        <p class="text-2xl">{{ user.firstName }}</p>
+            <div class="grid grid-rows-5 p-4 w-full min-h-[600px]">
+                <div class="flex flex-col justify-center items-centers row-span-2">
+                    <div class="flex justify-between pb-4 border-b border-b-red-500">
+                        <div v-for="(user, i) in match.teamA.users" :key="i">
+                            <p class="text-2xl">{{ user.firstName }}</p>
+                        </div>
+                        <h3 class="text-xl">
+                            {{ match.teamA.elo }}
+                        </h3>
                     </div>
-                    <h3 class="text-xl">{{ match.teamA.elo }}</h3>
 
                     <div class="grid grid-cols-3 mt-12">
                         <button
@@ -36,7 +40,9 @@
                     </div>
                 </div>
 
-                <div class="flex flex-col justify-center items-centers">
+                <div class="row-span-1 flex justify-center items-center text-xl font-bold">VS</div>
+
+                <div class="flex flex-col justify-center items-centers row-span-2">
                     <div class="grid grid-cols-3">
                         <button
                             class="p-4 w-[75px] h-[75px] border rounded-full border-red-600 text-3xl text-red-600 col-span-1 justify-self-center"
@@ -61,12 +67,17 @@
                             +
                         </button>
                     </div>
-                    <div class="mt-12">
-                        <div v-for="(user, i) in match.teamA.users" :key="i">
-                            <p class="text-2xl text-right">{{ user.firstName }}</p>
+
+                    <div class="mt-12 flex justify-between border-t border-t-green-500 pt-4">
+                        <h3 class="text-xl">
+                            {{ match.teamB.elo }}
+                        </h3>
+                        <div class="px-4 pb-4">
+                            <div v-for="(user, i) in match.teamA.users" :key="i">
+                                <p class="text-2xl">{{ user.firstName }}</p>
+                            </div>
                         </div>
                     </div>
-                    <h3 class="text-xl text-right">{{ match.teamB.elo }}</h3>
                 </div>
             </div>
             <div class="flex justify-center items-center">
