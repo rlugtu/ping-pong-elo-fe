@@ -13,7 +13,7 @@
                         class="py-4 mt-2 flex items-center justify-between text-orange-500 text-xl border-t border-t-orange-500"
                     >
                         <div class="flex items-center gap-2">
-                            <span class="font-bold">{{ i + 1 }}</span>
+                            <span cl2ass="font-bold">{{ i + 1 }}</span>
                             <div v-for="(user, i) in team.users" :key="i">
                                 <h2>{{ user.firstName }} {{ user.lastName }}</h2>
                             </div>

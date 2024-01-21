@@ -1,5 +1,5 @@
 <template>
-    <h1 class="p-2 text-slate-300 text-6xl font-semibold h-[70px]">Ping Pong</h1>
+    <h1 class="p-4 text-slate-300 text-6xl font-semibold h-[70px]">Ping Pong</h1>
 
     <LoadingScreen
         v-if="!user"

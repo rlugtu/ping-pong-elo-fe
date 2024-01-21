@@ -1,9 +1,9 @@
 <template>
-    <main class="p-2">
+    <main class="p-4">
         <LoadingScreen v-if="loading" class="mt-[30vh]"></LoadingScreen>
-        <div class="px-2" v-else>
+        <div v-else>
             <div class="flex flex-col gap-2">
-                <h1 class="text-xl text-slate-300 font-bold">My Live Matches</h1>
+                <h1 class="text-xl text-slate-300 font-bold pb-2">My Live Matches</h1>
                 <div v-for="(match, i) of inProgressMatches" :key="i">
                     <router-link :to="`match/${match.id}`">
                         <MatchCard
