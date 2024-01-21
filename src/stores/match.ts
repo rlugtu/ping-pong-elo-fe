@@ -14,9 +14,12 @@ export const useMatchStore = defineStore('match', () => {
         return res.data
     }
 
-    async function getInProgressMatches(): Promise<Match[]> {
+    async function getInProgressMatches(userId: string): Promise<Match[]> {
         const authHeader = await authStore.getAuthHeader()
-        const res = await axios.get<Match[]>(`${API_SERVER}/match/in-progress`, authHeader)
+        const res = await axios.get<Match[]>(
+            `${API_SERVER}/match/in-progress/user/${userId}`,
+            authHeader
+        )
 
         return res.data
     }

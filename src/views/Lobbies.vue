@@ -55,7 +55,7 @@
     </main>
 </template>
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import CreateMatch from '@/components/CreateMatch.vue'
 import JoinLobby from '@/components/JoinLobby.vue'
 import Modal from '@/components/Modal.vue'
@@ -67,7 +67,9 @@ import { useUserStore } from '../stores/user'
 import { type Match, type Lobby } from '../types/match'
 
 const matchStore = useMatchStore()
-const user = useUserStore().user
+const user = computed(() => {
+    return useUserStore().user
+})
 
 const loading = ref(true)
 const lobbies = ref<Lobby[]>([])
@@ -92,8 +94,8 @@ function cancelJoinLobby(): void {
 
 async function createMatch(match: MatchSetup): Promise<void> {
     try {
-        if (user?.id) {
-            match.teamA = [user.id]
+        if (user.value?.id) {
+            match.teamA = [user.value.id]
         }
         await matchStore.createMatch(match)
     } catch (error) {
@@ -104,13 +106,12 @@ async function createMatch(match: MatchSetup): Promise<void> {
 }
 
 async function joinMatch(): Promise<void> {
-    console.log(selectedLobby.value || !user)
     try {
-        if (!selectedLobby.value || !user) {
+        if (!selectedLobby.value || !user.value) {
             console.log(selectedLobby.value, user)
             return
         }
-        const { id } = user
+        const { id } = user.value
 
         const usersToAdd = selectedLobby.value.teamB?.users.map((user) => user.id) ?? []
         usersToAdd.push(id)
@@ -129,7 +130,13 @@ onMounted(async () => {
     try {
         lobbies.value = await matchStore.getAllOpenLobbies()
 
-        inProgressMatches.value = await matchStore.getInProgressMatches()
+        if (!user.value) {
+            return
+        }
+
+        console.log(user.value)
+
+        inProgressMatches.value = await matchStore.getInProgressMatches(user.value.id)
     } catch (error) {}
     loading.value = false
 })
