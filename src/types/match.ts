@@ -27,7 +27,7 @@ export type WinningTeam = 'teamA' | 'teamB' | null
 
 export type MatchWinningScore = 11 | 21
 
-export type MatchState = 'IN_PROGRESS' | 'COMPLETE' | 'SETUP'
+export type MatchState = 'IN_PROGRESS' | 'COMPLETED' | 'SETUP'
 
 export type Lobby = Pick<Match, 'id' | 'teamA' | 'winningScore'> & {
     teamB: Team | null

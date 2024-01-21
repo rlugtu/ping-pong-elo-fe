@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { Lobby, Match, MatchScoreData, MatchSetup } from '@/types/match'
+import type { Lobby, Match, MatchScoreData, MatchSetup, MatchState } from '@/types/match'
 import { API_SERVER } from '@/utils/globals'
 import { useAuthStore } from './auth'
 import axios from 'axios'
@@ -17,6 +17,13 @@ export const useMatchStore = defineStore('match', () => {
     async function getInProgressMatches(): Promise<Match[]> {
         const authHeader = await authStore.getAuthHeader()
         const res = await axios.get<Match[]>(`${API_SERVER}/match/in-progress`, authHeader)
+
+        return res.data
+    }
+
+    async function getAllMatchesByState(state: MatchState): Promise<Match[]> {
+        const authHeader = await authStore.getAuthHeader()
+        const res = await axios.get<Match[]>(`${API_SERVER}/match/state/${state}`, authHeader)
 
         return res.data
     }
@@ -60,6 +67,7 @@ export const useMatchStore = defineStore('match', () => {
         joinLobby,
         getInProgressMatches,
         getMatch,
-        updateMatchScore
+        updateMatchScore,
+        getAllMatchesByState
     }
 })
