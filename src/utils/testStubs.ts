@@ -32,5 +32,5 @@ export const testMatch: Match = {
     mode: 'SINGLES',
     winner: null,
     winningScore: 11,
-    createdAt: new Date()
+    createdAt: ''
 }

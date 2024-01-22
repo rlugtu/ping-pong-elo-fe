@@ -12,7 +12,7 @@
 <script lang="ts" setup>
 import { useUserStore } from './stores/user'
 import { useAuthStore } from './stores/auth'
-import Navbar from '@/components/Navbar.vue'
+import Navbar from './components/Navbar.vue'
 import LoadingScreen from '@/components/LoadingScreen.vue'
 import { computed, ref, watch } from 'vue'
 
