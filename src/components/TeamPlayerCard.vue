@@ -1,5 +1,5 @@
 <template>
-    <div class="py-2 px-4 flex justify-between items-center bg-slate-300">
+    <div class="p-2 flex justify-between items-center bg-slate-300">
         <div class="flex flex-col w-[70%]">
             <div v-for="(user, i) of team.users" :key="i">
                 {{ user.firstName }}
@@ -7,7 +7,7 @@
                 {{ team.elo }}
             </div>
         </div>
-        <h1 class="text-2xl">{{ playerScore }}</h1>
+        <h1 class="text-2xl text-orange-500 font-semibold">{{ playerScore }}</h1>
     </div>
 </template>
 

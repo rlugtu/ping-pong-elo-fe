@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col rounded">
         <div
-            class="flex justify-between items-center px-4 py-4 bg-blue-700 rounded-t border-b-0 text-white"
+            class="flex justify-between items-center p-2 bg-blue-700 rounded-t border-b-0 text-white"
         >
             <h2>
                 {{ DateTime.fromISO(match.createdAt).toFormat('MMMM dd, yyyy') }}
