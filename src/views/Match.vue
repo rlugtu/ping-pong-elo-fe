@@ -1,7 +1,7 @@
 <template>
     <main class="p-2">
         <LoadingScreen v-if="loading || match === null" class="mt-[30vh]"></LoadingScreen>
-        <div v-else class="text-slate-300 pb-[70px] full">
+        <div v-else class="text-slate-300 pb-[70px] full touch-manipulation">
             <h1 class="text-3xl text-gray-300">Live Match</h1>
             <div class="grid grid-rows-5 p-2 w-full">
                 <div class="flex flex-col justify-center items-centers row-span-2">
