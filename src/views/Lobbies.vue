@@ -1,5 +1,5 @@
 <template>
-    <main class="p-4">
+    <main class="p-2">
         <LoadingScreen v-if="loading" class="mt-[30vh]"></LoadingScreen>
         <div v-else>
             <div class="flex flex-col gap-2">

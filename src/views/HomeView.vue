@@ -1,5 +1,5 @@
 <template>
-    <main class="p-4">
+    <main class="p-2">
         <LoadingScreen v-if="loadingData" class="mt-[30vh]"></LoadingScreen>
 
         <div v-else>

@@ -3,7 +3,7 @@
         <LoadingScreen v-if="loading || match === null" class="mt-[30vh]"></LoadingScreen>
         <div v-else class="text-slate-300">
             <h1 class="text-3xl text-gray-300">Live Match</h1>
-            <div class="grid grid-rows-5 p-4 w-full min-h-[600px]">
+            <div class="grid grid-rows-5 p-2 w-full min-h-[600px]">
                 <div class="flex flex-col justify-center items-centers row-span-2">
                     <div class="flex justify-between pb-4 border-b border-b-orange-500">
                         <div v-for="(user, i) in match.teamA.users" :key="i">
@@ -23,7 +23,7 @@
                             -
                         </button>
                         <p
-                            class="p-4 w-[75px] h-[75px] flex justify-center items-center text-6xl justify-self-center"
+                            class="p-4 w-[75px] h-[75px] flex justify-center items-center text-4xl justify-self-center"
                             :class="
                                 teamAScore >= match.winningScore && 'animate-bounce text-green-500'
                             "
@@ -56,7 +56,7 @@
                             -
                         </button>
                         <p
-                            class="p-4 w-[75px] h-[75px] flex justify-center items-center text-6xl justify-self-center"
+                            class="p-4 w-[75px] h-[75px] flex justify-center items-center text-4xl justify-self-center"
                             :class="[
                                 teamBScore >= match.winningScore && 'animate-bounce text-green-500'
                             ]"
