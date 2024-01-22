@@ -22,6 +22,12 @@ const router = createRouter({
             beforeEnter: authGuard
         },
         {
+            path: '/callback/:id',
+            name: 'callback',
+            component: Callback,
+            beforeEnter: authGuard
+        },
+        {
             path: '/profile',
             name: 'profile',
             component: Profile,
