@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-12">
+            <div class="mt-8">
                 <h1 class="text-xl text-blue-500 font-semibold">Recent Matches</h1>
                 <div class="mt-2 flex flex-col gap-4">
                     <MatchSummaryCard
