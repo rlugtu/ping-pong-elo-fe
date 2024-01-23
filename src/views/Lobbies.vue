@@ -3,7 +3,7 @@
         <LoadingScreen v-if="loading" class="mt-[30vh]"></LoadingScreen>
         <div v-else>
             <div class="flex flex-col gap-2">
-                <h1 class="text-xl text-slate-300 font-bold pb-2 text-blue-500">My Live Matches</h1>
+                <h1 class="text-xl font-bold pb-2 text-blue-500">My Live Matches</h1>
                 <div v-for="(match, i) of inProgressMatches" :key="i">
                     <router-link :to="`match/${match.id}`">
                         <MatchCard
