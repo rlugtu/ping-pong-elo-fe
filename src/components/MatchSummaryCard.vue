@@ -17,7 +17,7 @@
             :team="match.teamB"
             :playerScore="match.teamA.score"
             :side="'teamB'"
-            class="rounded-b border-t border-gray-700"
+            class="rounded-b border-t border-slate-400"
         ></TeamPlayerCard>
     </div>
 </template>

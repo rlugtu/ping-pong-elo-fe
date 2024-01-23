@@ -6,11 +6,11 @@
             <div>
                 <h1 class="text-xl text-orange-500 font-semibold">Rankings</h1>
 
-                <div class="mt-2">
+                <div class="mt-2 flex flex-col gap-4">
                     <div
                         v-for="(team, i) in rankings.SINGLES"
                         :key="i"
-                        class="py-4 mt-2 flex items-center justify-between text-orange-500 text-xl border-t border-t-orange-500"
+                        class="py-4 flex items-center justify-between text-orange-500 text-xl border-t border-t-orange-500"
                     >
                         <div class="flex items-center gap-2">
                             <span cl2ass="font-bold">{{ i + 1 }}</span>
