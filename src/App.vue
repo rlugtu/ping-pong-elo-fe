@@ -30,15 +30,13 @@ const user = computed(() => userStore.user)
 watch(userId, async (userId) => {
     try {
         if (userId && !userStore.user) {
-            const user = await userStore.getUser(userId)
-
-            if (!user && authStore.user) {
-                const userInfo = authStore.createUserFromGoogleUser(authStore.user)
-                userStore.user = await userStore.createUser(userInfo)
-            }
+            await userStore.getUser(userId)
         }
     } catch (error) {
-        console.log('error', error)
+        if (!userStore.user && authStore.user) {
+            const userInfo = authStore.createUserFromGoogleUser(authStore.user)
+            await userStore.createUser(userInfo)
+        }
     }
 })
 </script>

@@ -23,6 +23,7 @@ export const useUserStore = defineStore('user', () => {
         const authHeader = await useAuthStore().getAuthHeader()
         const res = await axios.post<User>(`${API_SERVER}/users`, info, authHeader)
 
+        user.value = res.data
         return res.data
     }
 
