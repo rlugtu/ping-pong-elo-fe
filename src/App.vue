@@ -1,13 +1,13 @@
 <template>
     <main class="min-h-screen relative">
-        <h1 class="p-2 text-slate-300 text-6xl font-semibold h-[70px]">Ping Pong</h1>
+        <h1 class="p-2 text-slate-300 text-4xl font-semibold">Ping Pong</h1>
 
         <LoadingScreen
             v-if="!user"
             class="absolute top-0 h-screen w-screen flex justify-center items-center"
         ></LoadingScreen>
-        <RouterView v-else class="font-sans bg-gray-900 pt-6 min-h-[calc(100vh_-_100px)]" />
-        <Navbar v-if="user" class="fixed bottom-0 w-full bg-slate-700 h-[50px]"></Navbar>
+        <RouterView v-else class="font-sans bg-gray-900 pt-6 pb-[60px]" />
+        <Navbar v-if="user" class="fixed bottom-0 w-full bg-slate-700 h-[60px]"></Navbar>
     </main>
 </template>
 

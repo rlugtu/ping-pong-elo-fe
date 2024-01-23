@@ -1,13 +1,17 @@
 <template>
-    <div class="p-2 flex justify-between items-center bg-slate-300">
+    <div class="px-2 py-1 flex justify-between items-center bg-slate-300">
         <div class="flex flex-col w-[70%]">
             <div v-for="(user, i) of team.users" :key="i">
-                {{ user.firstName }}
-                {{ user.lastName }}
-                {{ team.elo }}
+                <span>
+                    {{ user.firstName }}
+                    {{ user.lastName }}
+                </span>
+                <span class="ml-1 text-sm text-orange-600">
+                    {{ team.elo }}
+                </span>
             </div>
         </div>
-        <h1 class="text-2xl text-orange-500 font-semibold">{{ playerScore }}</h1>
+        <h1 class="text-lg">{{ playerScore }}</h1>
     </div>
 </template>
 
