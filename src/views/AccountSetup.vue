@@ -1,15 +1,15 @@
 <template>
-    <div class="flex flex-col justify-center items-center p-2">
+    <div class="flex flex-col justify-center items-center py-2 px-2">
         <h1 class="text-3xl font-semibold text-blue-500">Account Setup</h1>
         <form
             @submit.prevent
             @submit="createUser(userInfo)"
-            class="mt-8 grid gap-6 rounded-lg w-[80%] text-slate-600"
+            class="mt-8 w-full grid gap-8 rounded-lg text-slate-600"
         >
-            <div class="flex flex-col border-b border-b-slate-400">
-                <label for="firstName" class="text-slate-400 text-lg">First Name</label>
+            <div class="flex flex-col border-b border-b-slate-600">
+                <label for="firstName" class="text-slate-500 text-2xl">First Name</label>
                 <input
-                    class="bg-transparent placeholder-slate-700 py-2 outline-none text-slate-400"
+                    class="bg-transparent placeholder-slate-700 py-2 outline-none text-orange-500 text-lg"
                     type="text"
                     name="firstName"
                     placeholder="John"
@@ -17,24 +17,30 @@
                     v-model="userInfo.firstName"
                 />
             </div>
-            <div class="flex flex-col border-b border-b-slate-400">
-                <label for="lastName" class="text-slate-400 text-lg"
+            <div
+                class="flex flex-col border-b"
+                :class="userInfo.lastName?.length ? 'border-b-orange-400' : ' border-b-slate-500'"
+            >
+                <label for="lastName" class="text-slate-500 text-2xl"
                     >Last Name <span class="text-slate-600 text-xs"> (Optional) </span></label
                 >
                 <input
-                    class="bg-transparent placeholder-slate-700 py-2 outline-none text-slate-400"
+                    class="bg-transparent placeholder-slate-700 py-2 outline-none text-orange-500 text-lg"
                     type="text"
                     name="lastName"
                     placeholder="(Optional) Doe "
                     v-model="userInfo.lastName"
                 />
             </div>
-            <div class="flex flex-col border-b border-b-slate-400">
-                <label for="department" class="text-slate-400 text-lg"
+            <div
+                class="flex flex-col border-b"
+                :class="userInfo.department?.length ? 'border-b-orange-400' : ' border-b-slate-500'"
+            >
+                <label for="department" class="text-slate-500 text-2xl"
                     >Department <span class="text-slate-600 text-xs"> (Optional) </span></label
                 >
                 <input
-                    class="bg-transparent placeholder-slate-700 py-2 outline-none text-slate-400"
+                    class="bg-transparent placeholder-slate-700 py-2 outline-none text-orange-500 text-xl"
                     type="text"
                     name="department"
                     placeholder="Engineeriing "
@@ -42,9 +48,9 @@
                 />
             </div>
             <button
-                class="bg-orange-500 h-[50px] w-[125px] mx-auto rounded-md text-white font-semibold mt-4"
+                class="py-4 px-8 bg-orange-500 mx-auto rounded-md text-white font-semibold mt-4 text-lg"
             >
-                Create
+                {{ userStore.user ? 'Update ' : 'Create' }}
             </button>
         </form>
     </div>
