@@ -114,9 +114,9 @@ async function createMatch(match: MatchSetup): Promise<void> {
 async function joinMatch(): Promise<void> {
     try {
         if (!selectedLobby.value || !user.value) {
-            console.log(selectedLobby.value, user)
             return
         }
+
         const { id } = user.value
 
         const usersToAdd = selectedLobby.value.teamB?.users.map((user) => user.id) ?? []
@@ -139,8 +139,6 @@ onMounted(async () => {
         if (!user.value) {
             return
         }
-
-        console.log(user.value)
 
         inProgressMatches.value = await matchStore.getInProgressMatches(user.value.id)
     } catch (error) {}
