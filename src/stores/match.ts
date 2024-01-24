@@ -1,39 +1,29 @@
 import { defineStore } from 'pinia'
 import type { Lobby, Match, MatchSetup, MatchState, UpdateMatchScoreDto } from '@/types/match'
-import { API_SERVER } from '@/utils/globals'
-import { useAuthStore } from './auth'
 import axios from 'axios'
+import apiClient from '@/api-client/api-client'
 
 export const useMatchStore = defineStore('match', () => {
-    const authStore = useAuthStore()
-
     async function getMatch(id: string): Promise<Match> {
-        const authHeader = await authStore.getAuthHeader()
-        const res = await axios.get<Match>(`${API_SERVER}/match/${id}`, authHeader)
+        const res = await apiClient.get<Match>(`/match/${id}`)
 
         return res.data
     }
 
     async function getInProgressMatches(userId: string): Promise<Match[]> {
-        const authHeader = await authStore.getAuthHeader()
-        const res = await axios.get<Match[]>(
-            `${API_SERVER}/match/in-progress/user/${userId}`,
-            authHeader
-        )
+        const res = await apiClient.get<Match[]>(`/match/in-progress/user/${userId}`)
 
         return res.data
     }
 
     async function getAllMatchesByState(state: MatchState): Promise<Match[]> {
-        const authHeader = await authStore.getAuthHeader()
-        const res = await axios.get<Match[]>(`${API_SERVER}/match/state/${state}`, authHeader)
+        const res = await apiClient.get<Match[]>(`match/state/${state}`)
 
         return res.data
     }
 
     async function createMatch(match: MatchSetup): Promise<Match> {
-        const authHeader = await authStore.getAuthHeader()
-        const res = await axios.post<Match>(`${API_SERVER}/match`, match, authHeader)
+        const res = await axios.post<Match>(`match`, match)
 
         return res.data
     }
@@ -42,26 +32,19 @@ export const useMatchStore = defineStore('match', () => {
         matchId: string,
         scoreData: UpdateMatchScoreDto
     ): Promise<void> {
-        const authHeader = await authStore.getAuthHeader()
+        const res = await axios.patch(`match/${matchId}/score`, scoreData)
 
-        const res = await axios.patch(`${API_SERVER}/match/${matchId}/score`, scoreData, authHeader)
         return res.data
     }
 
     async function getAllOpenLobbies(): Promise<Lobby[]> {
-        const authHeader = await authStore.getAuthHeader()
-        const res = await axios.get<Lobby[]>(`${API_SERVER}/match/lobbies`, authHeader)
+        const res = await axios.get<Lobby[]>('match/lobbies')
 
         return res.data
     }
 
     async function joinLobby(matchId: string, teamInfo: { teamB: string[] }): Promise<Match> {
-        const authHeader = await authStore.getAuthHeader()
-        const res = await axios.patch<Match>(
-            `${API_SERVER}/match/${matchId}/join`,
-            teamInfo,
-            authHeader
-        )
+        const res = await apiClient.patch<Match>(`/match/${matchId}/join`, teamInfo)
 
         return res.data
     }
