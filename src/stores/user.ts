@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { CreateUser, User } from '@/types/users'
 import apiClient from '@/api-client/api-client'
+import { useAuthStore } from './auth'
 
 export const useUserStore = defineStore('user', () => {
     const user = ref<User | null>(null)
@@ -14,7 +15,7 @@ export const useUserStore = defineStore('user', () => {
     }
 
     async function createUser(info: CreateUser): Promise<User> {
-        const res = await apiClient.post<User>('/users', info)
+        const res = await apiClient.post<User>('/users', info, await useAuthStore().getAuthHeader())
 
         user.value = res.data
         return res.data

@@ -1,12 +1,18 @@
 <template>
     <main class="p-2 flex flex-col justify-center text-slate-300">
-        <div class="mx-auto flex flex-col justify-center items-center gap-4 pt-16">
+        <div class="flex justify-end">
+            <router-link to="/user-setup">
+                <font-awesome-icon icon="fa-solid fa-gear" class="text-3xl mr-4" />
+            </router-link>
+        </div>
+        <div class="mx-auto flex flex-col justify-center items-center">
             <div
-                class="border border-gray-300 rounded-full w-[100px] h-[100px] flex flex-col justify-center items-center"
+                class="border border-gray-300 rounded-full w-[150px] h-[150px] flex flex-col justify-center items-center mt-4"
             >
-                <font-awesome-icon icon="fa-solid fa-user" class="text-5xl mb-2" />
+                <font-awesome-icon icon="fa-solid fa-user" class="text-7xl" />
             </div>
-            <h1>{{ user?.firstName }} {{ user?.lastName }}</h1>
+            <h1 class="mt-4">{{ user?.firstName }} {{ user?.lastName }}</h1>
+            <h1 v-if="user?.department" class="text-xs mt">{{ user.department }}</h1>
         </div>
         <div class="mt-6 min-h-[100px]">
             <h1 class="text-2xl font-bold">My Teams</h1>
@@ -26,17 +32,9 @@
 import { useAuthStore } from '../stores/auth'
 import { useUserStore } from '../stores/user'
 import { computed, onMounted } from 'vue'
-import router from '@/router'
 
 const user = computed(() => userStore.user)
 
 const userStore = useUserStore()
 const authStore = useAuthStore()
-
-onMounted(() => {
-    if (!userStore.user) {
-        router.push('/')
-    }
-    console.log(user.value)
-})
 </script>

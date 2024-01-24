@@ -5,6 +5,7 @@ import Profile from '../views/Profile.vue'
 import { authGuard } from '@auth0/auth0-vue'
 import Lobbies from '@/views/Lobbies.vue'
 import Match from '@/views/Match.vue'
+import AccountSetup from '@/views/AccountSetup.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,6 +26,12 @@ const router = createRouter({
             path: '/callback/:id',
             name: 'callback',
             component: Callback,
+            beforeEnter: authGuard
+        },
+        {
+            path: '/user-setup',
+            name: 'user-setup',
+            component: AccountSetup,
             beforeEnter: authGuard
         },
         {

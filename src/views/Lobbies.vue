@@ -77,7 +77,7 @@ const user = computed(() => {
     return useUserStore().user
 })
 
-const loading = ref(true)
+const loading = ref(false)
 const lobbies = ref<Lobby[]>([])
 const creatingMatch = ref(false)
 const joiningLobby = ref(false)
@@ -134,13 +134,16 @@ async function joinMatch(): Promise<void> {
 
 onMounted(async () => {
     try {
+        loading.value = true
         lobbies.value = await matchStore.getAllOpenLobbies()
         if (!user.value) {
             return
         }
-
         inProgressMatches.value = await matchStore.getInProgressMatches(user.value.id)
-    } catch (error) {}
-    loading.value = false
+    } catch (error) {
+        console.log(error)
+    } finally {
+        loading.value = false
+    }
 })
 </script>
