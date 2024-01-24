@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import type { Lobby, Match, MatchSetup, MatchState, UpdateMatchScoreDto } from '@/types/match'
-import axios from 'axios'
 import apiClient from '@/api-client/api-client'
 
 export const useMatchStore = defineStore('match', () => {
@@ -23,7 +22,7 @@ export const useMatchStore = defineStore('match', () => {
     }
 
     async function createMatch(match: MatchSetup): Promise<Match> {
-        const res = await axios.post<Match>(`match`, match)
+        const res = await apiClient.post<Match>(`match`, match)
 
         return res.data
     }
@@ -32,14 +31,13 @@ export const useMatchStore = defineStore('match', () => {
         matchId: string,
         scoreData: UpdateMatchScoreDto
     ): Promise<void> {
-        const res = await axios.patch(`match/${matchId}/score`, scoreData)
+        const res = await apiClient.patch(`match/${matchId}/score`, scoreData)
 
         return res.data
     }
 
     async function getAllOpenLobbies(): Promise<Lobby[]> {
-        const res = await axios.get<Lobby[]>('match/lobbies')
-
+        const res = await apiClient.get<Lobby[]>('match/lobbies')
         return res.data
     }
 

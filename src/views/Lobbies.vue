@@ -135,7 +135,6 @@ async function joinMatch(): Promise<void> {
 onMounted(async () => {
     try {
         lobbies.value = await matchStore.getAllOpenLobbies()
-
         if (!user.value) {
             return
         }
