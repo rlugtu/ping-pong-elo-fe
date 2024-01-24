@@ -20,15 +20,26 @@ export interface Match extends Omit<MatchSetup, 'teamA'> {
     teamB: MatchTeam
     winner: WinningTeam
     winningScore: MatchWinningScore
-    createdAt: Date
+    createdAt: string
 }
 
 export type WinningTeam = 'teamA' | 'teamB' | null
 
 export type MatchWinningScore = 11 | 21
 
-export type MatchState = 'IN_PROGRESS' | 'COMPLETE' | 'SETUP'
+export type MatchState = 'IN_PROGRESS' | 'COMPLETED' | 'SETUP'
 
 export type Lobby = Pick<Match, 'id' | 'teamA' | 'winningScore'> & {
     teamB: Team | null
+}
+
+export interface UpdateMatchScoreDto {
+    teamA: {
+        id: string
+        score: number
+    }
+    teamB: {
+        id: string
+        score: number
+    }
 }

@@ -1,5 +1,5 @@
 import type { Match } from '@/types/match'
-import type { Team } from '@/types/team'
+import type { MatchTeam, Team } from '@/types/team'
 import type { User } from '@/types/users'
 
 export const testUser: User = {
@@ -16,15 +16,21 @@ export const testTeam: Team = {
     users: [testUser],
     elo: 1400
 }
+
+export const testMatchTeam: MatchTeam = {
+    ...testTeam,
+    score: 0,
+    createdAt: new Date(),
+    updatedAt: new Date()
+}
+
 export const testMatch: Match = {
     id: 'match-id',
     state: 'IN_PROGRESS',
-    teamA: testTeam,
-    teamAScore: 0,
-    teamB: testTeam,
+    teamA: testMatchTeam,
+    teamB: testMatchTeam,
     mode: 'SINGLES',
-    teamBScore: 0,
     winner: null,
     winningScore: 11,
-    createdAt: new Date()
+    createdAt: ''
 }

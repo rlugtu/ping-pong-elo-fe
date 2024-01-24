@@ -16,6 +16,7 @@ export const useUserStore = defineStore('user', () => {
     async function createUser(info: CreateUser): Promise<User> {
         const res = await apiClient.post<User>('/users', info)
 
+        user.value = res.data
         return res.data
     }
 

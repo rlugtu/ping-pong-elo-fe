@@ -1,19 +1,25 @@
 <template>
-    <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center p-2 text-lg text-blue-500">
         <div class="flex items-center w-full">
-            <span class="w-[20%] flex items-center justify-center">{{ match.teamAScore }} 0</span>
-            <div class="flex flex-col">
+            <span
+                class="w-[50px] flex items-center justify-center text-xl font-bold text-orange-500"
+                >{{ match.teamA.score }}
+            </span>
+            <div class="flex flex-col ml-2">
                 <h2>{{ match.teamA.users[0].firstName }}</h2>
-                <p>ELO</p>
+                <p>{{ match.teamA.elo }}</p>
             </div>
         </div>
-        <span>VS</span>
+        <span class="text-slate-300">VS</span>
         <div class="flex items-center justify-end w-full">
-            <div class="flex flex-col">
+            <div class="flex flex-col mr-2">
                 <h2>{{ match.teamB.users[0].firstName }}</h2>
-                <p>ELO</p>
+                <p>{{ match.teamB.elo }}</p>
             </div>
-            <span class="w-[20%] flex items-center justify-center">{{ match.teamBScore }} 0</span>
+            <span
+                class="w-[50px] flex items-center justify-center text-xl font-bold text-orange-500"
+                >{{ match.teamB.score }}
+            </span>
         </div>
     </div>
 </template>

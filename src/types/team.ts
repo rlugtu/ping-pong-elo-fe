@@ -1,4 +1,5 @@
 import type { Elo } from './elo'
+import type { MatchMode } from './match'
 import type { User } from './users'
 
 export interface Team {
@@ -16,6 +17,12 @@ export interface MatchTeam extends Team {
     updatedAt: Date
     users: User[]
     score: number
+}
+
+export interface TeamQueryParams {
+    matchMode: MatchMode
+    sort: 'asc' | 'desc'
+    limit?: number
 }
 
 export interface MatchTeam extends Team {
