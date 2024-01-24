@@ -20,7 +20,7 @@
                     <div class="grid grid-cols-3 mt-12">
                         <button
                             class="p-4 w-[75px] h-[75px] border rounded-full border-orange-600 text-3xl text-orange-600 col-span-1 justify-self-center"
-                            @click="updateTeamScore('a', 'subtract')"
+                            @click="updateTeamScore(opposingTeam, 'subtract')"
                             :disabled="opposingTeam.score <= 0"
                         >
                             -
@@ -36,7 +36,7 @@
                         </p>
                         <button
                             class="p-4 w-[75px] h-[75px] border rounded-full border-blue-600 text-3xl text-blue-600 col-span-1 justify-self-center"
-                            @click="updateTeamScore('a', 'add')"
+                            @click="updateTeamScore(opposingTeam, 'add')"
                             :disabled="opposingTeam.score >= match.winningScore"
                         >
                             +
@@ -54,7 +54,7 @@
                     <div class="grid grid-cols-3">
                         <button
                             class="p-4 w-[75px] h-[75px] border rounded-full border-orange-600 text-3xl text-orange-600 col-span-1 justify-self-center"
-                            @click="updateTeamScore('b', 'subtract')"
+                            @click="updateTeamScore(userTeam, 'subtract')"
                             :disabled="userTeam.score <= 0"
                         >
                             -
@@ -70,7 +70,7 @@
                         </p>
                         <button
                             class="p-4 w-[75px] h-[75px] border rounded-full border-blue-600 text-3xl text-blue-600 col-span-1 justify-self-center"
-                            @click="updateTeamScore('b', 'add')"
+                            @click="updateTeamScore(userTeam, 'add')"
                             :disabled="userTeam.score >= match.winningScore"
                         >
                             +
@@ -92,7 +92,7 @@
             <div class="flex justify-center items-center">
                 <button
                     class="w-[200px] mt-4 bg-blue-500 rounded p-4 h-[50px] flex justify-center items-center"
-                    @click="submitUpdateTeamScore(match.teamA.id, match.teamB.id)"
+                    @click="submitUpdateTeamScore()"
                 >
                     Submit Score
                 </button>
@@ -102,58 +102,55 @@
 </template>
 
 <script lang="ts" setup>
-import type { Match, MatchScoreData } from '@/types/match'
+import type { Match } from '@/types/match'
 import LoadingScreen from '@/components/LoadingScreen.vue'
 import { onMounted, ref } from 'vue'
 import { useMatchStore } from '@/stores/match'
 import { useRoute } from 'vue-router'
 import router from '@/router'
-import type { MatchTeam, Team } from '@/types/team'
+import type { MatchTeam } from '@/types/team'
 import { useUserStore } from '@/stores/user'
 const matchStore = useMatchStore()
 const userStore = useUserStore()
 
 const loading = ref(false)
 const match = ref<Match | null>(null)
-const teamAScore = ref(match.value?.teamA.score ?? 0)
-const teamBScore = ref(match.value?.teamB.score ?? 0)
 const userTeam = ref<MatchTeam>()
 const opposingTeam = ref<MatchTeam>()
 
 function assignTeamSides(match: Match): void {
     const userExistsInTeamA = match.teamA.users.find((user) => {
-        user.id === userStore.user?.id
+        return user.id === userStore.user?.id
     })
 
     userTeam.value = userExistsInTeamA ? match.teamA : match.teamB
     opposingTeam.value = userExistsInTeamA ? match.teamB : match.teamA
 }
 
-function updateTeamScore(side: 'a' | 'b', action: 'add' | 'subtract'): void {
-    if (side === 'a') {
-        teamAScore.value = action === 'add' ? teamAScore.value + 1 : teamAScore.value - 1
-    } else {
-        teamBScore.value = action === 'add' ? teamBScore.value + 1 : teamBScore.value - 1
-    }
+function updateTeamScore(team: MatchTeam, action: 'add' | 'subtract'): void {
+    team.score = action === 'add' ? team.score + 1 : team.score - 1
 }
 
 // Temp function will be replaced when web sockets introduced
-async function submitUpdateTeamScore(teamAId: string, teamBId: string): Promise<void> {
+async function submitUpdateTeamScore(): Promise<void> {
     try {
         loading.value = true
         if (!match.value) {
             return
         }
-        const teamAScoreInfo: MatchScoreData = {
-            teamId: teamAId,
-            score: teamAScore.value
+
+        const matchScore = {
+            teamA: {
+                id: match.value.teamA.id,
+                score: match.value.teamA.score
+            },
+            teamB: {
+                id: match.value.teamB.id,
+                score: match.value.teamB.score
+            }
         }
-        const teamBScoreInfo: MatchScoreData = {
-            teamId: teamBId,
-            score: teamBScore.value
-        }
-        await matchStore.updateMatchScore(match.value.id, teamAScoreInfo)
-        await matchStore.updateMatchScore(match.value.id, teamBScoreInfo)
+
+        await matchStore.updateMatchScore(match.value.id, matchScore)
     } catch (error) {
         console.log(error)
     } finally {
@@ -174,8 +171,6 @@ onMounted(async () => {
         }
 
         match.value = await matchStore.getMatch(matchId)
-        teamAScore.value = match.value.teamA.score
-        teamBScore.value = match.value.teamB.score
 
         assignTeamSides(match.value)
     } catch (error) {

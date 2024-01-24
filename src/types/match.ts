@@ -33,7 +33,13 @@ export type Lobby = Pick<Match, 'id' | 'teamA' | 'winningScore'> & {
     teamB: Team | null
 }
 
-export interface MatchScoreData {
-    teamId: string
-    score: number
+export interface UpdateMatchScoreDto {
+    teamA: {
+        id: string
+        score: number
+    }
+    teamB: {
+        id: string
+        score: number
+    }
 }

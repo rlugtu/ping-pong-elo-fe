@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { Lobby, Match, MatchScoreData, MatchSetup, MatchState } from '@/types/match'
+import type { Lobby, Match, MatchSetup, MatchState, UpdateMatchScoreDto } from '@/types/match'
 import { API_SERVER } from '@/utils/globals'
 import { useAuthStore } from './auth'
 import axios from 'axios'
@@ -38,11 +38,13 @@ export const useMatchStore = defineStore('match', () => {
         return res.data
     }
 
-    async function updateMatchScore(matchId: string, scoreData: MatchScoreData): Promise<void> {
+    async function updateMatchScore(
+        matchId: string,
+        scoreData: UpdateMatchScoreDto
+    ): Promise<void> {
         const authHeader = await authStore.getAuthHeader()
 
         const res = await axios.patch(`${API_SERVER}/match/${matchId}/score`, scoreData, authHeader)
-
         return res.data
     }
 
