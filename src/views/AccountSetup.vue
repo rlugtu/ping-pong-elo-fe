@@ -17,10 +17,7 @@
                     v-model="userInfo.firstName"
                 />
             </div>
-            <div
-                class="flex flex-col border-b"
-                :class="userInfo.lastName?.length ? 'border-b-orange-400' : ' border-b-slate-500'"
-            >
+            <div class="flex flex-col border-b border-b-slate-600">
                 <label for="lastName" class="text-slate-500 text-2xl"
                     >Last Name <span class="text-slate-600 text-xs"> (Optional) </span></label
                 >
@@ -32,10 +29,7 @@
                     v-model="userInfo.lastName"
                 />
             </div>
-            <div
-                class="flex flex-col border-b"
-                :class="userInfo.department?.length ? 'border-b-orange-400' : ' border-b-slate-500'"
-            >
+            <div class="flex flex-col border-b border-b-slate-600">
                 <label for="department" class="text-slate-500 text-2xl"
                     >Department <span class="text-slate-600 text-xs"> (Optional) </span></label
                 >
