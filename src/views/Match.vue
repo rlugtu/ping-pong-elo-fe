@@ -4,13 +4,16 @@
         <div v-else class="text-slate-300 pb-[70px] full touch-manipulation">
             <h1 class="text-3xl text-gray-300">Live Match</h1>
             <div class="grid grid-rows-5 p-2 w-full">
-                <div class="flex flex-col justify-center items-centers row-span-2">
+                <div
+                    class="flex flex-col justify-center items-centers row-span-2"
+                    v-if="opposingTeam"
+                >
                     <div class="flex justify-between pb-4 border-b border-b-orange-500">
-                        <div v-for="(user, i) in match.teamA.users" :key="i">
+                        <div v-for="(user, i) in opposingTeam.users" :key="i">
                             <p class="text-2xl">{{ user.firstName }}</p>
                         </div>
                         <h3 class="text-xl">
-                            {{ match.teamA.elo }}
+                            {{ opposingTeam.elo }}
                         </h3>
                     </div>
 
@@ -18,22 +21,23 @@
                         <button
                             class="p-4 w-[75px] h-[75px] border rounded-full border-orange-600 text-3xl text-orange-600 col-span-1 justify-self-center"
                             @click="updateTeamScore('a', 'subtract')"
-                            :disabled="teamAScore <= 0"
+                            :disabled="opposingTeam.score <= 0"
                         >
                             -
                         </button>
                         <p
                             class="p-4 w-[75px] h-[75px] flex justify-center items-center text-4xl justify-self-center"
                             :class="
-                                teamAScore >= match.winningScore && 'animate-bounce text-green-500'
+                                opposingTeam.score >= match.winningScore &&
+                                'animate-bounce text-green-500'
                             "
                         >
-                            {{ teamAScore }}
+                            {{ opposingTeam.score }}
                         </p>
                         <button
                             class="p-4 w-[75px] h-[75px] border rounded-full border-blue-600 text-3xl text-blue-600 col-span-1 justify-self-center"
                             @click="updateTeamScore('a', 'add')"
-                            :disabled="teamAScore >= match.winningScore"
+                            :disabled="opposingTeam.score >= match.winningScore"
                         >
                             +
                         </button>
@@ -46,27 +50,28 @@
                     VS
                 </div>
 
-                <div class="flex flex-col justify-center items-centers row-span-2">
+                <div class="flex flex-col justify-center items-centers row-span-2" v-if="userTeam">
                     <div class="grid grid-cols-3">
                         <button
                             class="p-4 w-[75px] h-[75px] border rounded-full border-orange-600 text-3xl text-orange-600 col-span-1 justify-self-center"
                             @click="updateTeamScore('b', 'subtract')"
-                            :disabled="teamBScore <= 0"
+                            :disabled="userTeam.score <= 0"
                         >
                             -
                         </button>
                         <p
                             class="p-4 w-[75px] h-[75px] flex justify-center items-center text-4xl justify-self-center"
                             :class="[
-                                teamBScore >= match.winningScore && 'animate-bounce text-green-500'
+                                userTeam.score >= match.winningScore &&
+                                    'animate-bounce text-green-500'
                             ]"
                         >
-                            {{ teamBScore }}
+                            {{ userTeam.score }}
                         </p>
                         <button
                             class="p-4 w-[75px] h-[75px] border rounded-full border-blue-600 text-3xl text-blue-600 col-span-1 justify-self-center"
                             @click="updateTeamScore('b', 'add')"
-                            :disabled="teamBScore >= match.winningScore"
+                            :disabled="userTeam.score >= match.winningScore"
                         >
                             +
                         </button>
@@ -74,10 +79,10 @@
 
                     <div class="mt-12 flex justify-between border-t border-t-blue-500 pt-4">
                         <h3 class="text-xl">
-                            {{ match.teamB.elo }}
+                            {{ userTeam?.elo }}
                         </h3>
                         <div class="px-4 pb-4">
-                            <div v-for="(user, i) in match.teamA.users" :key="i">
+                            <div v-for="(user, i) in userTeam?.users" :key="i">
                                 <p class="text-2xl">{{ user.firstName }}</p>
                             </div>
                         </div>
@@ -103,12 +108,26 @@ import { onMounted, ref } from 'vue'
 import { useMatchStore } from '@/stores/match'
 import { useRoute } from 'vue-router'
 import router from '@/router'
+import type { MatchTeam, Team } from '@/types/team'
+import { useUserStore } from '@/stores/user'
 const matchStore = useMatchStore()
+const userStore = useUserStore()
 
 const loading = ref(false)
 const match = ref<Match | null>(null)
 const teamAScore = ref(match.value?.teamA.score ?? 0)
 const teamBScore = ref(match.value?.teamB.score ?? 0)
+const userTeam = ref<MatchTeam>()
+const opposingTeam = ref<MatchTeam>()
+
+function assignTeamSides(match: Match): void {
+    const userExistsInTeamA = match.teamA.users.find((user) => {
+        user.id === userStore.user?.id
+    })
+
+    userTeam.value = userExistsInTeamA ? match.teamA : match.teamB
+    opposingTeam.value = userExistsInTeamA ? match.teamB : match.teamA
+}
 
 function updateTeamScore(side: 'a' | 'b', action: 'add' | 'subtract'): void {
     if (side === 'a') {
@@ -157,6 +176,8 @@ onMounted(async () => {
         match.value = await matchStore.getMatch(matchId)
         teamAScore.value = match.value.teamA.score
         teamBScore.value = match.value.teamB.score
+
+        assignTeamSides(match.value)
     } catch (error) {
         console.log({ error })
     } finally {
