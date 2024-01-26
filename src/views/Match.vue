@@ -250,9 +250,10 @@ onMounted(async () => {
 })
 
 onBeforeUnmount(async () => {
-    if (!!match.value && !!userTeam.value && !!opposingTeam.value) {
-        await submitMatchScores(match.value.id, userTeam.value, opposingTeam.value)
-    }
+    // TEMP will decide later if we want to autoSave on leave
+    // if (!!match.value && !!userTeam.value && !!opposingTeam.value) {
+    //     await submitMatchScores(match.value.id, userTeam.value, opposingTeam.value)
+    // }
     if (!match.value?.id) {
         return
     }
