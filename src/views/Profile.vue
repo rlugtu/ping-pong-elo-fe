@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import { useAuthStore } from '../stores/auth'
 import { useUserStore } from '../stores/user'
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue'
 
 const user = computed(() => userStore.user)
 
