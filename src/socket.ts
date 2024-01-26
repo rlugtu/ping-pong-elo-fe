@@ -3,7 +3,14 @@ import { io } from 'socket.io-client'
 import { API_SERVER } from './utils/globals'
 
 export type SocketMatchRooms = {
-    [roomId: string]: {
+    [matchId: string]: {
+        [teamId: string]: number
+    }
+}
+
+export type SocketMatchScoreUpdate = {
+    matchId: string
+    scores: {
         [teamId: string]: number
     }
 }
@@ -29,6 +36,6 @@ socket.on('disconnect', () => {
     state.connected = false
 })
 
-socket.on('matchScoreUpdated', (data: SocketMatchRooms) => {
-    state.matches = { ...state.matches, ...data }
+socket.on('matchScoreUpdated', (data: SocketMatchScoreUpdate) => {
+    state.matches[data.matchId] = data.scores
 })
