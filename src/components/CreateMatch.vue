@@ -4,19 +4,20 @@
         <div class="mt-8 grid grid-cols-2">
             <h1 class="col-span-2 text-center mb-4 text-xl font-semibold">Mode</h1>
             <button
-                class="col-span-1 h-12"
+                class="col-span-2 h-12"
                 :class="matchSetup.mode === 'SINGLES' && 'rounded bg-blue-600'"
                 @click="setMatchMode('SINGLES')"
             >
                 1v1
             </button>
-            <button
-                class="col-span-1 h-12"
+            <!-- <button
+                class="col-span-1 h-12 "
                 :class="matchSetup.mode === 'DOUBLES' && 'rounded bg-blue-600'"
                 @click="setMatchMode('DOUBLES')"
+                disabled
             >
-                2v2
-            </button>
+                2v2 
+            </button> -->
         </div>
         <div class="mt-12 grid grid-cols-2">
             <h1 class="col-span-2 text-center mb-4 font-semibold text-xl">Set Winning Score</h1>

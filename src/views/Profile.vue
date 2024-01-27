@@ -15,7 +15,20 @@
             <h1 v-if="user?.department" class="text-xs mt">{{ user.department }}</h1>
         </div>
         <div class="mt-6 min-h-[100px]">
-            <h1 class="text-2xl font-bold">My Teams</h1>
+            <h1 class="text-2xl font-bold mb-2">My Teams</h1>
+            <div
+                v-for="(team, i) of user?.teams"
+                :key="i"
+                class="flex justify-between py-2 border-t"
+            >
+                <div v-for="(user, i) of team.users" :key="i">
+                    <template v-if="team.users.length === 1">
+                        <p>Solo</p>
+                    </template>
+                    <p v-else>{{ user.firstName }} {{ user.lastName }}</p>
+                </div>
+                <span>{{ team.elo }}</span>
+            </div>
         </div>
         <div class="mt-6 min-h-[100px]">
             <h1 class="text-2xl font-bold">Match History</h1>

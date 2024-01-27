@@ -1,4 +1,3 @@
-import type { Elo } from './elo'
 import type { MatchMode } from './match'
 import type { User } from './users'
 

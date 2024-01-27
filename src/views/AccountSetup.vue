@@ -14,6 +14,7 @@
                     name="firstName"
                     placeholder="John"
                     required
+                    minlength="1"
                     v-model="userInfo.firstName"
                 />
             </div>
