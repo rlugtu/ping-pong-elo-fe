@@ -50,7 +50,7 @@
                 <JoinLobby
                     class="mt-[20%] rounded"
                     :lobby="selectedLobby"
-                    @cancel="cancelJoinLobby"
+                    @cancel="toggleOffJoiningLobby"
                     :user="user"
                     @join="joinMatch"
                 ></JoinLobby>
@@ -70,6 +70,7 @@ import type { MatchSetup } from '@/types/match'
 import { useUserStore } from '../stores/user'
 import { type Match, type Lobby } from '../types/match'
 import { socket, state } from '@/socket'
+import router from '@/router'
 
 const matchStore = useMatchStore()
 const user = computed(() => {
@@ -92,11 +93,11 @@ function toggleJoinLobby(lobby: Lobby): void {
     joiningLobby.value = true
 }
 
-function cancelJoinLobby(): void {
+function toggleOffJoiningLobby(): void {
     selectedLobby.value = null
     joiningLobby.value = false
 }
-function sendNewLobbyToServer(): void {
+function refreshOpenLobbies(): void {
     socket.emit('getLobbiesByServer')
 }
 
@@ -106,7 +107,7 @@ async function createMatch(match: MatchSetup): Promise<void> {
             match.teamA = [user.value.id]
         }
         await matchStore.createMatch(match)
-        sendNewLobbyToServer()
+        refreshOpenLobbies()
     } catch (error) {
         console.log({ error })
     } finally {
@@ -128,17 +129,19 @@ async function joinMatch(): Promise<void> {
         await matchStore.joinLobby(selectedLobby.value.id, {
             teamB: usersToAdd
         })
+        refreshOpenLobbies()
+
+        router.push(`/match/${selectedLobby.value.id}`)
     } catch (error) {
         console.log(error)
     } finally {
-        cancelJoinLobby()
+        toggleOffJoiningLobby()
     }
 }
 
 onMounted(async () => {
     try {
-        // loading.value = true
-        // lobbies.value = await matchStore.getAllOpenLobbies()
+        loading.value = true
         socket.emit('getLobbiesRequestByClient', {
             socketId: socket.id
         })
