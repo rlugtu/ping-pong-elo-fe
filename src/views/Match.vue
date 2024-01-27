@@ -115,19 +115,17 @@ import { useRoute } from 'vue-router'
 import router from '@/router'
 import type { MatchTeam } from '@/types/team'
 import { useUserStore } from '@/stores/user'
-import { socket, state, type SocketMatchScoreUpdate } from '@/socket'
+import { socket, state } from '@/socket'
 
 const matchStore = useMatchStore()
 const userStore = useUserStore()
 
 const loading = ref(false)
-const allDataLoaded = computed(() => {
-    return !!match.value && !!userTeam.value && opposingTeam.value
-})
+
 const match = ref<Match | null>(null)
-const userTeam = ref<MatchTeam>()
 const userExistsInTeamA = ref(false)
 
+const userTeam = ref<MatchTeam>()
 const userTeamScore = computed(() => {
     if (!match.value || !userTeam.value?.id) {
         return 0
@@ -135,6 +133,7 @@ const userTeamScore = computed(() => {
 
     return state.matches?.[match.value.id]?.[userTeam.value.id] ?? 0
 })
+
 const opposingTeam = ref<MatchTeam>()
 const opposingTeamScore = computed(() => {
     if (!match.value || !opposingTeam.value?.id) {

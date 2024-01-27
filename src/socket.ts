@@ -1,6 +1,7 @@
 import { reactive } from 'vue'
 import { io } from 'socket.io-client'
 import { API_SERVER } from './utils/globals'
+import type { Lobby } from './types/match'
 
 export type SocketMatchRooms = {
     [matchId: string]: {
@@ -18,9 +19,11 @@ export type SocketMatchScoreUpdate = {
 export const state = reactive<{
     connected: boolean
     matches: SocketMatchRooms
+    lobbies: Lobby[]
 }>({
     connected: false,
-    matches: {}
+    matches: {},
+    lobbies: []
 })
 
 const URL = API_SERVER
@@ -38,4 +41,8 @@ socket.on('disconnect', () => {
 
 socket.on('matchScoreUpdated', (data: SocketMatchScoreUpdate) => {
     state.matches[data.matchId] = data.scores
+})
+
+socket.on('getLobbiesResponse', (data: Lobby[]) => {
+    state.lobbies = data
 })

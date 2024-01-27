@@ -69,6 +69,7 @@ import { useMatchStore } from '@/stores/match'
 import type { MatchSetup } from '@/types/match'
 import { useUserStore } from '../stores/user'
 import { type Match, type Lobby } from '../types/match'
+import { socket, state } from '@/socket'
 
 const matchStore = useMatchStore()
 const user = computed(() => {
@@ -76,7 +77,7 @@ const user = computed(() => {
 })
 
 const loading = ref(false)
-const lobbies = ref<Lobby[]>([])
+const lobbies = computed(() => state.lobbies)
 const creatingMatch = ref(false)
 const joiningLobby = ref(false)
 const selectedLobby = ref<Lobby | null>(null)
@@ -95,6 +96,9 @@ function cancelJoinLobby(): void {
     selectedLobby.value = null
     joiningLobby.value = false
 }
+function sendNewLobbyToServer(): void {
+    socket.emit('getLobbiesByServer')
+}
 
 async function createMatch(match: MatchSetup): Promise<void> {
     try {
@@ -102,6 +106,7 @@ async function createMatch(match: MatchSetup): Promise<void> {
             match.teamA = [user.value.id]
         }
         await matchStore.createMatch(match)
+        sendNewLobbyToServer()
     } catch (error) {
         console.log({ error })
     } finally {
@@ -132,8 +137,12 @@ async function joinMatch(): Promise<void> {
 
 onMounted(async () => {
     try {
-        loading.value = true
-        lobbies.value = await matchStore.getAllOpenLobbies()
+        // loading.value = true
+        // lobbies.value = await matchStore.getAllOpenLobbies()
+        socket.emit('getLobbiesRequestByClient', {
+            socketId: socket.id
+        })
+
         if (!user.value) {
             return
         }
