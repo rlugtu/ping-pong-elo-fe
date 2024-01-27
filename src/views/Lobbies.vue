@@ -13,8 +13,13 @@
                     </router-link>
                 </div>
             </div>
-            <div class="flex flex-col gap-2 mt-12 pb-[190px]">
-                <h1 class="text-xl font-bold text-orange-500">Open Lobbies</h1>
+            <div class="flex flex-col gap-2 mt-12">
+                <div class="flex justify-between text-orange-500 pb-2">
+                    <h1 class="text-xl font-bold">Open Lobbies</h1>
+                    <button @click="toggleCreateMatch" class="w-[100px] rounded font-bold">
+                        Create
+                    </button>
+                </div>
                 <div
                     class="border border-orange-500 pl-4 py-2 rounded flex items-center justify-between relative text-slate-300"
                     v-for="(lobby, i) of lobbies"
@@ -33,14 +38,7 @@
                     </button>
                 </div>
             </div>
-            <div class="absolute left-0 bottom-[110px] w-full flex justify-center">
-                <button
-                    @click="toggleCreateMatch"
-                    class="bg-orange-500 w-[200px] p-4 rounded text-white font-bold"
-                >
-                    Create Match
-                </button>
-            </div>
+
             <Modal v-if="creatingMatch">
                 <CreateMatch
                     class="mt-[20%] rounded"
