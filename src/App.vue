@@ -23,7 +23,6 @@ const userId = computed(() => {
 })
 
 const user = computed(() => userStore.user)
-const isConnected = computed(() => state.connected)
 
 watch(userId, async (userId) => {
     try {
@@ -45,6 +44,7 @@ onMounted(() => {
         if (document.visibilityState === 'hidden') {
             return
         }
+        console.log('reconnecting')
 
         if (!state.connected) {
             socket.connect()

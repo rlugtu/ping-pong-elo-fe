@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import { io } from 'socket.io-client'
+import { Socket, io } from 'socket.io-client'
 import { API_SERVER } from './utils/globals'
 import type { Lobby, Match } from './types/match'
 import { useUserStore } from './stores/user'
@@ -35,6 +35,19 @@ export const socket = io(URL)
 socket.on('connect', () => {
     console.log('connected to socket')
     state.connected = true
+
+    const user = useUserStore().user
+
+    if (user && socket.id) {
+        socketSetup(user.id, socket.id)
+    }
+
+    for (const matchId in state.matches) {
+        socket.emit('joinMatch', {
+            socketId: socket.id,
+            matchId
+        })
+    }
 })
 
 socket.on('disconnect', () => {
@@ -74,5 +87,12 @@ export function socketSetup(userId: string, socketId: string): void {
 
     socket.emit('getInProgressMatchesByUserIdRequest', {
         userId
+    })
+}
+
+export function joinMatchSocket(matchId: string, socket: Socket) {
+    socket.emit('joinMatch', {
+        socketId: socket.id,
+        matchId
     })
 }
