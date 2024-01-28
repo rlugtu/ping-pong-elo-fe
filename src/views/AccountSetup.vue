@@ -1,9 +1,9 @@
 <template>
     <div class="flex flex-col justify-center items-center py-2 px-2">
-        <h1 class="text-3xl font-semibold text-blue-500">Account Setup</h1>
+        <h1 class="text-3xl font-semibold text-blue-500">Account Info</h1>
         <form
             @submit.prevent
-            @submit="createUser(userInfo)"
+            @submit="updateUserInfo(userInfo)"
             class="mt-8 w-full grid gap-8 rounded-lg text-slate-600"
         >
             <div class="flex flex-col border-b border-b-slate-600">
@@ -65,13 +65,14 @@ const userInfo = ref<CreateUser>({
     lastName: userStore.user?.lastName ?? '',
     department: userStore.user?.department ?? ''
 })
-async function createUser(info: CreateUser): Promise<void> {
+async function updateUserInfo(info: CreateUser): Promise<void> {
     try {
-        await userStore.createUser(info)
+        const rerouteLink = userStore.user ? '/profile' : '/'
 
+        await userStore.createUser(info)
         await userStore.getUser(info.id)
 
-        router.push('/')
+        router.push(rerouteLink)
     } catch (error) {}
 }
 </script>

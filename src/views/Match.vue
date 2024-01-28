@@ -96,7 +96,7 @@
             </div>
             <div class="flex justify-center items-center">
                 <button
-                    class="w-[200px] mt-4 bg-blue-500 rounded p-4 h-[50px] flex justify-center items-center"
+                    class="w-[200px] mt-4 bg-blue-600 rounded p-4 h-[50px] flex justify-center items-center"
                     @click="submitMatchScores(match.id, userTeam, opposingTeam)"
                 >
                     Submit Score
@@ -131,7 +131,7 @@ const userTeamScore = computed(() => {
         return 0
     }
 
-    return state.matches?.[match.value.id]?.[userTeam.value.id] ?? 0
+    return state.matches?.[match.value.id]?.[userTeam.value.id] ?? null
 })
 
 const opposingTeam = ref<MatchTeam>()
@@ -140,7 +140,7 @@ const opposingTeamScore = computed(() => {
         return 0
     }
 
-    return state.matches?.[match.value.id]?.[opposingTeam.value.id] ?? 0
+    return state.matches?.[match.value.id]?.[opposingTeam.value.id] ?? null
 })
 
 function updateScore(matchId: string, teamId: string, score: number): void {
@@ -179,7 +179,6 @@ async function submitMatchScores(
             teamB: teamBScores
         }
 
-        console.log(matchScore)
         await matchStore.updateMatchScore(matchId, matchScore)
     } catch (error) {
         console.log(error)

@@ -68,7 +68,7 @@ import MatchCard from '@/components/MatchCard.vue'
 import { useMatchStore } from '@/stores/match'
 import type { MatchSetup } from '@/types/match'
 import { useUserStore } from '../stores/user'
-import { type Match, type Lobby } from '../types/match'
+import { type Lobby } from '../types/match'
 import { socket, state } from '@/socket'
 import router from '@/router'
 
@@ -82,7 +82,7 @@ const lobbies = computed(() => state.lobbies)
 const creatingMatch = ref(false)
 const joiningLobby = ref(false)
 const selectedLobby = ref<Lobby | null>(null)
-const inProgressMatches = ref<Match[]>([])
+const inProgressMatches = computed(() => state.inProgressMatches)
 
 function toggleCreateMatch(): void {
     creatingMatch.value = !creatingMatch.value
@@ -115,6 +115,9 @@ async function createMatch(match: MatchSetup): Promise<void> {
     }
 }
 
+function notifyParticipantsOnMatchProgress(userIds: string[]): void {
+    socket.emit('notifyParticipantsOnMatchProgressEvent', userIds)
+}
 async function joinMatch(): Promise<void> {
     try {
         if (!selectedLobby.value || !user.value) {
@@ -129,7 +132,12 @@ async function joinMatch(): Promise<void> {
         await matchStore.joinLobby(selectedLobby.value.id, {
             teamB: usersToAdd
         })
+
         refreshOpenLobbies()
+
+        // Update UI of other participants
+        const otherParticipants = selectedLobby.value.teamA.users.map((user) => user.id)
+        notifyParticipantsOnMatchProgress(otherParticipants)
 
         router.push(`/match/${selectedLobby.value.id}`)
     } catch (error) {
@@ -139,21 +147,12 @@ async function joinMatch(): Promise<void> {
     }
 }
 
-onMounted(async () => {
-    try {
-        loading.value = true
-        socket.emit('getLobbiesRequestByClient', {
-            socketId: socket.id
+onMounted(() => {
+    const userId = useUserStore().user?.id
+    if (userId) {
+        socket.emit('getInProgressMatchesByUserIdRequest', {
+            userId
         })
-
-        if (!user.value) {
-            return
-        }
-        inProgressMatches.value = await matchStore.getInProgressMatches(user.value.id)
-    } catch (error) {
-        console.log(error)
-    } finally {
-        loading.value = false
     }
 })
 </script>

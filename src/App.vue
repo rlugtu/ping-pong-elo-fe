@@ -13,6 +13,7 @@ import { useAuthStore } from './stores/auth'
 import Navbar from './components/Navbar.vue'
 import { computed, watch } from 'vue'
 import router from './router'
+import { socket } from './socket'
 
 const userStore = useUserStore()
 const authStore = useAuthStore()
@@ -28,6 +29,15 @@ watch(userId, async (userId) => {
         if (userId && !userStore.user) {
             await userStore.getUser(userId)
         }
+
+        // LOBBY SEtUP
+        socket.emit('getLobbiesRequestByClient', {
+            socketId: socket.id
+        })
+
+        socket.emit('getInProgressMatchesByUserIdRequest', {
+            userId: userId
+        })
     } catch (error) {
         router.push('/user-setup')
     }

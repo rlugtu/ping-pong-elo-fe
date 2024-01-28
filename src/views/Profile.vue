@@ -35,7 +35,7 @@
         </div>
         <button
             @click="authStore.handleLogout"
-            class="bg-red-500 w-[150px] rounded-xl p-4 mx-auto mt-6"
+            class="bg-red-600 w-[150px] rounded-xl p-4 mx-auto mt-6"
         >
             Logout
         </button>
