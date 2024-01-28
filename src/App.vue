@@ -39,12 +39,11 @@ watch(userId, async (userId) => {
 })
 
 onMounted(() => {
-    // for vue socket
+    // Handles Recoonect
     document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'hidden') {
             return
         }
-        console.log('reconnecting')
 
         if (!state.connected) {
             socket.connect()

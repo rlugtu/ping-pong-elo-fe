@@ -115,7 +115,7 @@ import { useRoute } from 'vue-router'
 import router from '@/router'
 import type { MatchTeam } from '@/types/team'
 import { useUserStore } from '@/stores/user'
-import { socket, state } from '@/socket'
+import { joinMatchSocket, socket, state } from '@/socket'
 
 const matchStore = useMatchStore()
 const userStore = useUserStore()
@@ -230,16 +230,10 @@ onMounted(async () => {
         }
 
         match.value = await matchStore.getMatch(matchId)
+        assignTeamSides(match.value)
 
         // join match socket
-        if (socket.id) {
-            socket.emit('joinMatch', {
-                socketId: socket.id,
-                matchId
-            })
-        }
-
-        assignTeamSides(match.value)
+        joinMatchSocket(matchId, socket)
     } catch (error) {
         console.log({ error })
     } finally {

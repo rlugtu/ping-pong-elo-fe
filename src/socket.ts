@@ -37,16 +37,19 @@ socket.on('connect', () => {
     state.connected = true
 
     const user = useUserStore().user
+    if (!socket.id) {
+        return
+    }
 
-    if (user && socket.id) {
+    // Reconnect logic
+    // join general server
+    if (user) {
         socketSetup(user.id, socket.id)
     }
 
+    // join rooms
     for (const matchId in state.matches) {
-        socket.emit('joinMatch', {
-            socketId: socket.id,
-            matchId
-        })
+        joinMatchSocket(matchId, socket)
     }
 })
 

@@ -1,6 +1,6 @@
 <template>
     <main class="p-2">
-        <LoadingScreen v-if="loading" class="mt-[30vh]"></LoadingScreen>
+        <LoadingScreen v-if="loading || !user" class="mt-[30vh]"></LoadingScreen>
         <div v-else>
             <div class="flex flex-col gap-2">
                 <h1 class="text-xl font-bold pb-2 text-blue-500">My Live Matches</h1>
@@ -33,6 +33,7 @@
                     <button
                         class="bg-orange-500 w-[100px] rounded rounded-l-none absolute right-0 h-full text-white font-bold"
                         @click="toggleJoinLobby(lobby)"
+                        v-if="!isLobbyOwner(lobby, user.id)"
                     >
                         Join
                     </button>
@@ -78,7 +79,7 @@ const user = computed(() => {
 })
 
 const loading = ref(false)
-const lobbies = computed(() => state.lobbies)
+const lobbies = computed<Lobby[]>(() => state.lobbies)
 const creatingMatch = ref(false)
 const joiningLobby = ref(false)
 const selectedLobby = ref<Lobby | null>(null)
@@ -99,6 +100,10 @@ function toggleOffJoiningLobby(): void {
 }
 function refreshOpenLobbies(): void {
     socket.emit('getLobbiesByServer')
+}
+
+function isLobbyOwner(lobby: Lobby, userId: string): boolean {
+    return lobby.teamA.users.some((user) => user.id === userId)
 }
 
 async function createMatch(match: MatchSetup): Promise<void> {
