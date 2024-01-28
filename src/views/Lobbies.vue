@@ -116,7 +116,6 @@ async function createMatch(match: MatchSetup): Promise<void> {
 }
 
 function notifyParticipantsOnMatchProgress(userIds: string[]): void {
-    console.log('notifying other participants')
     socket.emit('notifyParticipantsOnMatchProgressEvent', userIds)
 }
 async function joinMatch(): Promise<void> {
@@ -130,14 +129,18 @@ async function joinMatch(): Promise<void> {
         const usersToAdd = selectedLobby.value.teamB?.users.map((user) => user.id) ?? []
         usersToAdd.push(id)
 
-        await matchStore.joinLobby(selectedLobby.value.id, {
+        const match = await matchStore.joinLobby(selectedLobby.value.id, {
             teamB: usersToAdd
         })
 
         refreshOpenLobbies()
 
         // Update UI of other participants
-        const otherParticipants = selectedLobby.value.teamA.users.map((user) => user.id)
+        // Note: should be both teamA and teamB. Use match instead
+        const otherParticipants = selectedLobby.value.teamA.users
+            .filter((user) => user.id !== id)
+            .map((user) => user.id)
+
         notifyParticipantsOnMatchProgress(otherParticipants)
 
         router.push(`/match/${selectedLobby.value.id}`)

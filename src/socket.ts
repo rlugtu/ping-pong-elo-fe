@@ -56,17 +56,20 @@ socket.on('getInProgressMatchesByUserIdResponse', (matches: Match[]) => {
 })
 
 socket.on('shouldUpdateInProgressMatches', (userId: string) => {
-    socket.emit('getInProgressMatchesByUserIdRequest', userId)
+    socket.emit('getInProgressMatchesByUserIdRequest', {
+        userId,
+        socketId: socket.id
+    })
 })
 
-export function socketSetup(userId: string, stocketId: string): void {
+export function socketSetup(userId: string, socketId: string): void {
     socket.emit('newConnection', {
         userId,
-        stocketId
+        socketId
     })
 
     socket.emit('getLobbiesRequestByClient', {
-        stocketId
+        socketId
     })
 
     socket.emit('getInProgressMatchesByUserIdRequest', {
