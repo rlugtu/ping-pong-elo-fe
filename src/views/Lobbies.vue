@@ -116,6 +116,7 @@ async function createMatch(match: MatchSetup): Promise<void> {
 }
 
 function notifyParticipantsOnMatchProgress(userIds: string[]): void {
+    console.log('notifying other participants')
     socket.emit('notifyParticipantsOnMatchProgressEvent', userIds)
 }
 async function joinMatch(): Promise<void> {
