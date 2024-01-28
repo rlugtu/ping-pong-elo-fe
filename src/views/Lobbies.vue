@@ -155,5 +155,10 @@ onMounted(() => {
             userId
         })
     }
+    if (socket.id) {
+        socket.emit('getLobbiesRequestByClient', {
+            socketId: socket.id
+        })
+    }
 })
 </script>
