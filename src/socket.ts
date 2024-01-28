@@ -35,15 +35,6 @@ export const socket = io(URL)
 socket.on('connect', () => {
     console.log('connected to socket')
     state.connected = true
-
-    const userId = useUserStore().user?.id
-
-    if (userId) {
-        socket.emit('newConnection', {
-            userId,
-            socketId: socket.id
-        })
-    }
 })
 
 socket.on('disconnect', () => {
@@ -67,3 +58,18 @@ socket.on('getInProgressMatchesByUserIdResponse', (matches: Match[]) => {
 socket.on('shouldUpdateInProgressMatches', (userId: string) => {
     socket.emit('getInProgressMatchesByUserIdRequest', userId)
 })
+
+export function socketSetup(userId: string, stocketId: string): void {
+    socket.emit('newConnection', {
+        userId,
+        stocketId
+    })
+
+    socket.emit('getLobbiesRequestByClient', {
+        stocketId
+    })
+
+    socket.emit('getInProgressMatchesByUserIdRequest', {
+        userId
+    })
+}
