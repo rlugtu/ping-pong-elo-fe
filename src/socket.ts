@@ -3,6 +3,7 @@ import { Socket, io } from 'socket.io-client'
 import { API_SERVER } from './utils/globals'
 import type { Lobby, Match } from './types/match'
 import { useUserStore } from './stores/user'
+import { useNotificationStore, type Notification } from './stores/notification'
 
 export type SocketMatchRooms = {
     [matchId: string]: {
@@ -80,6 +81,13 @@ socket.on('shouldUpdateInProgressMatches', (userId: string) => {
         userId,
         socketId: socket.id
     })
+})
+
+// NOTIFICATIONS
+socket.on('notificationAlert', (notification: Notification) => {
+    const notificationStore = useNotificationStore()
+
+    notificationStore.notification = notification
 })
 
 // Helpers

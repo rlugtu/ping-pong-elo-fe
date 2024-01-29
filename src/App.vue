@@ -4,6 +4,9 @@
 
         <RouterView class="font-sans bg-gray-900 pt-6 pb-[120px]" />
         <Navbar v-if="user" class="fixed bottom-0 w-full bg-slate-700 h-[80px]"></Navbar>
+        <Modal class="z-10 flex justify-center items-center p-4" v-if="notification">
+            <Notification :notification="notification"></Notification
+        ></Modal>
     </main>
 </template>
 
@@ -11,12 +14,18 @@
 import { useUserStore } from './stores/user'
 import { useAuthStore } from './stores/auth'
 import Navbar from './components/Navbar.vue'
-import { computed, onMounted, ref, watch } from 'vue'
+import Modal from './components/Modal.vue'
+import Notification from './components/Notification.vue'
+import { computed, onMounted, watch } from 'vue'
 import router from './router'
 import { socket, socketSetup, state } from './socket'
+import { useNotificationStore, type Notification as NotificationType } from './stores/notification'
 
 const userStore = useUserStore()
 const authStore = useAuthStore()
+const notificationStore = useNotificationStore()
+
+const notification = computed<NotificationType | null>(() => notificationStore.notification)
 
 const userId = computed(() => {
     return authStore.user?.sub
