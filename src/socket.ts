@@ -32,6 +32,8 @@ export const state = reactive<{
 const URL = API_SERVER
 
 export const socket = io(URL)
+
+// ** Watchers **
 socket.on('connect', () => {
     console.log('connected to socket')
     state.connected = true
@@ -52,8 +54,6 @@ socket.on('connect', () => {
         joinMatchSocket(matchId, socket)
     }
 })
-
-// ** Watchers **
 
 // server
 socket.on('disconnect', () => {

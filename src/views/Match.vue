@@ -203,20 +203,6 @@ function assignTeamSides(match: Match): void {
     }
 }
 
-socket.on('initialMatchScoreRequest', () => {
-    if (!match.value) {
-        return
-    }
-
-    socket.emit('matchScoreUpdateEvent', {
-        matchId: match.value.id,
-        scores: {
-            [match.value.teamA.id]: match.value.teamA.score,
-            [match.value.teamB.id]: match.value.teamB.score
-        }
-    })
-})
-
 onMounted(async () => {
     try {
         loading.value = true
