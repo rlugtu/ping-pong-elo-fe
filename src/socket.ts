@@ -41,7 +41,7 @@ socket.on('connect', () => {
         return
     }
 
-    // Reconnect logic
+    // ** Reconnect logic **
     // join general server
     if (user) {
         socketSetup(user.id, socket.id)
@@ -53,11 +53,15 @@ socket.on('connect', () => {
     }
 })
 
+// ** Watchers **
+
+// server
 socket.on('disconnect', () => {
     console.log('diconnected from socket')
     state.connected = false
 })
 
+// matches
 socket.on('matchScoreUpdated', (data: SocketMatchScoreUpdate) => {
     state.matches[data.matchId] = data.scores
 })
@@ -66,7 +70,7 @@ socket.on('getLobbiesResponse', (data: Lobby[]) => {
     state.lobbies = data
 })
 
-// In Progress Matches
+// lobby in progress matches
 socket.on('getInProgressMatchesByUserIdResponse', (matches: Match[]) => {
     state.inProgressMatches = matches
 })
@@ -78,6 +82,7 @@ socket.on('shouldUpdateInProgressMatches', (userId: string) => {
     })
 })
 
+// Helpers
 export function socketSetup(userId: string, socketId: string): void {
     socket.emit('newConnection', {
         userId,
