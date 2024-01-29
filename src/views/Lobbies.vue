@@ -8,6 +8,7 @@
                     <router-link :to="`match/${match.id}`">
                         <MatchCard
                             :match="match"
+                            :user="user"
                             class="border border-blue-500 rounded-lg"
                         ></MatchCard>
                     </router-link>
