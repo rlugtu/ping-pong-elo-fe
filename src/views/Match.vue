@@ -26,7 +26,6 @@
                         <button
                             class="p-4 w-[75px] h-[75px] border rounded-full border-orange-600 text-3xl text-orange-600 col-span-1 justify-self-center"
                             :disabled="opposingTeamScore <= 0"
-                            @click="updateScore(match.id, opposingTeam.id, opposingTeamScore - 1)"
                         >
                             -
                         </button>
@@ -41,7 +40,6 @@
                         </p>
                         <button
                             class="p-4 w-[75px] h-[75px] border rounded-full border-blue-600 text-3xl text-blue-600 col-span-1 justify-self-center"
-                            @click="updateScore(match.id, opposingTeam.id, opposingTeamScore + 1)"
                             :disabled="opposingTeamScore >= match.winningScore"
                         >
                             +
@@ -94,12 +92,18 @@
                     </div>
                 </div>
             </div>
-            <div class="flex justify-center items-center">
+            <div class="flex justify-center items-center gap-2">
                 <button
                     class="w-[200px] mt-4 bg-blue-600 rounded p-4 h-[50px] flex justify-center items-center"
-                    @click="submitMatchScores(match.id, userTeam, opposingTeam)"
+                    @click="submitMatchScores(match.id, userTeam, false)"
                 >
-                    Submit Score
+                    Save Progress
+                </button>
+                <button
+                    class="w-[200px] mt-4 bg-blue-600 rounded p-4 h-[50px] flex justify-center items-center"
+                    @click="submitMatchScores(match.id, userTeam, true)"
+                >
+                    Submit Final
                 </button>
             </div>
         </div>
@@ -131,7 +135,7 @@ const userTeamScore = computed(() => {
         return 0
     }
 
-    return state.matches?.[match.value.id]?.[userTeam.value.id] ?? null
+    return state.matches?.[match.value.id]?.scores[userTeam.value.id] ?? null
 })
 
 const opposingTeam = ref<MatchTeam>()
@@ -140,15 +144,17 @@ const opposingTeamScore = computed(() => {
         return 0
     }
 
-    return state.matches?.[match.value.id]?.[opposingTeam.value.id] ?? null
+    return state.matches?.[match.value.id]?.scores[opposingTeam.value.id] ?? null
 })
 
 function updateScore(matchId: string, teamId: string, score: number): void {
-    state.matches[matchId][teamId] = score
+    console.log(state.matches[matchId].scores[teamId])
+    state.matches[matchId].scores[teamId] = score
+    // state.matches[matchId].scores[teamId] = score
 
     socket.emit('matchScoreUpdateEvent', {
         matchId,
-        scores: state.matches[matchId]
+        matchRoomInfo: state.matches[matchId]
     })
 }
 
@@ -156,30 +162,37 @@ function updateScore(matchId: string, teamId: string, score: number): void {
 async function submitMatchScores(
     matchId: string,
     userTeam: MatchTeam,
-    opposingTeam: MatchTeam
+    // opposingTeam: MatchTeam,
+    isFinalScore: boolean = false
 ): Promise<void> {
     try {
         loading.value = true
 
-        const teamAScores = {
-            id: userExistsInTeamA.value ? userTeam?.id : opposingTeam.id,
-            score: userExistsInTeamA.value
-                ? state.matches[matchId][userTeam.id]
-                : state.matches[matchId][opposingTeam.id]
-        }
-        const teamBScores = {
-            id: userExistsInTeamA.value ? opposingTeam?.id : userTeam.id,
-            score: userExistsInTeamA.value
-                ? state.matches[matchId][opposingTeam.id]
-                : state.matches[matchId][userTeam.id]
-        }
+        // const teamAScores = {
+        //     id: userExistsInTeamA.value ? userTeam?.id : opposingTeam.id,
+        //     score: userExistsInTeamA.value
+        //         ? state.matches[matchId].scores[userTeam.id]
+        //         : state.matches[matchId].scores[opposingTeam.id],
+        //     isFinalScore
+        // }
+        // const teamBScores = {
+        //     id: userExistsInTeamA.value ? opposingTeam?.id : userTeam.id,
+        //     score: userExistsInTeamA.value
+        //         ? state.matches[matchId].scores[opposingTeam.id]
+        //         : state.matches[matchId].scores[userTeam.id],
+        //     isFinalScore
+        // }
 
-        const matchScore = {
-            teamA: teamAScores,
-            teamB: teamBScores
-        }
+        // const matchUpdate = {
+        //     teamA: teamAScores,
+        //     teamB: teamBScores
+        // }
 
-        await matchStore.updateMatchScore(matchId, matchScore)
+        await matchStore.updateMatchScore(matchId, {
+            teamId: userTeam.id,
+            score: state.matches[matchId].scores[userTeam.id],
+            isFinalScore
+        })
     } catch (error) {
         console.log(error)
     } finally {

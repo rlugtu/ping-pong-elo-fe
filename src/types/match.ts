@@ -34,12 +34,9 @@ export type Lobby = Pick<Match, 'id' | 'teamA' | 'winningScore'> & {
 }
 
 export interface UpdateMatchScoreDto {
-    teamA: {
-        id: string
-        score: number
-    }
-    teamB: {
-        id: string
-        score: number
-    }
+    teamId: string
+
+    score: number
+
+    isFinalScore: boolean
 }

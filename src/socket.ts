@@ -1,14 +1,20 @@
 import { reactive } from 'vue'
 import { Socket, io } from 'socket.io-client'
 import { API_SERVER } from './utils/globals'
-import type { Lobby, Match } from './types/match'
+import type { Lobby, Match, MatchState } from './types/match'
 import { useUserStore } from './stores/user'
 import { useNotificationStore, type Notification } from './stores/notification'
 
 export type SocketMatchRooms = {
-    [matchId: string]: {
+    [matchId: string]: MatchRoomInfo
+}
+
+type MatchRoomInfo = {
+    scores: {
         [teamId: string]: number
     }
+    state: MatchState
+    participants: string[] // string of userIds
 }
 
 export type SocketMatchScoreUpdate = {
@@ -63,8 +69,8 @@ socket.on('disconnect', () => {
 })
 
 // matches
-socket.on('matchScoreUpdated', (data: SocketMatchScoreUpdate) => {
-    state.matches[data.matchId] = data.scores
+socket.on('matchScoreUpdated', (data: { matchId: string; matchRoomInfo: MatchRoomInfo }) => {
+    state.matches[data.matchId] = data.matchRoomInfo
 })
 
 socket.on('getLobbiesResponse', (data: Lobby[]) => {
