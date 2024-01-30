@@ -18,7 +18,7 @@
             v-if="loading"
             class="mt-24 flex justify-center items-center"
         ></LoadingScreen>
-        <template v-else>
+        <div v-else class="animate-fadeIn">
             <div class="mt-6 min-h-[100px]">
                 <h1 class="text-2xl font-bold mb-2">My Teams</h1>
                 <div
@@ -44,7 +44,7 @@
             >
                 Logout
             </button>
-        </template>
+        </div>
     </main>
 </template>
 <script setup lang="ts">

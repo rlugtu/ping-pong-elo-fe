@@ -2,7 +2,7 @@
     <main class="p-2">
         <LoadingScreen v-if="loadingData" class="mt-[30vh]"></LoadingScreen>
 
-        <div v-else>
+        <div v-else class="animate-fadeIn">
             <div>
                 <h1 class="text-xl text-orange-500 font-semibold">Rankings</h1>
 

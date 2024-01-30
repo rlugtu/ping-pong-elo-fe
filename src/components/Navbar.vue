@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-3 text-slate-300 font-semibold">
+    <div class="grid grid-cols-3 text-slate-300 font-semibold animate-fadeIn">
         <router-link
             to="/"
             class="flex justify-center items-center border-r border-gray-400 pb-[20px]"
