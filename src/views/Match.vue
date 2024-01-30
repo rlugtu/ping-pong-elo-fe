@@ -168,26 +168,6 @@ async function submitMatchScores(
     try {
         loading.value = true
 
-        // const teamAScores = {
-        //     id: userExistsInTeamA.value ? userTeam?.id : opposingTeam.id,
-        //     score: userExistsInTeamA.value
-        //         ? state.matches[matchId].scores[userTeam.id]
-        //         : state.matches[matchId].scores[opposingTeam.id],
-        //     isFinalScore
-        // }
-        // const teamBScores = {
-        //     id: userExistsInTeamA.value ? opposingTeam?.id : userTeam.id,
-        //     score: userExistsInTeamA.value
-        //         ? state.matches[matchId].scores[opposingTeam.id]
-        //         : state.matches[matchId].scores[userTeam.id],
-        //     isFinalScore
-        // }
-
-        // const matchUpdate = {
-        //     teamA: teamAScores,
-        //     teamB: teamBScores
-        // }
-
         await matchStore.updateMatchScore(matchId, {
             teamId: userTeam.id,
             score: state.matches[matchId].scores[userTeam.id],
@@ -196,6 +176,9 @@ async function submitMatchScores(
     } catch (error) {
         console.log(error)
     } finally {
+        if (isFinalScore) {
+            router.push('/')
+        }
         loading.value = false
     }
 }

@@ -14,6 +14,13 @@ export const useUserStore = defineStore('user', () => {
         return res.data
     }
 
+    async function refreshUser(): Promise<void> {
+        if (!user.value?.id) {
+            return
+        }
+        await getUser(user.value.id)
+    }
+
     async function createUser(info: CreateUser): Promise<User> {
         const res = await apiClient.post<User>('/users', info, await useAuthStore().getAuthHeader())
 
@@ -21,5 +28,5 @@ export const useUserStore = defineStore('user', () => {
         return res.data
     }
 
-    return { user, getUser, createUser }
+    return { user, getUser, createUser, refreshUser }
 })
