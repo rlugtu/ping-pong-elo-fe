@@ -28,5 +28,10 @@ export const useUserStore = defineStore('user', () => {
         return res.data
     }
 
-    return { user, getUser, createUser, refreshUser }
+    async function getAllUsers(): Promise<User[]> {
+        const res = await apiClient.get<User[]>('/users')
+        return res.data
+    }
+
+    return { user, getUser, createUser, refreshUser, getAllUsers }
 })
