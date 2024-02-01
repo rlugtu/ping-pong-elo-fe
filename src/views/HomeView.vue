@@ -4,7 +4,12 @@
 
         <div v-else class="animate-fadeIn">
             <div>
-                <h1 class="text-xl text-orange-500 font-semibold">Rankings</h1>
+                <div class="flex justify-between">
+                    <h1 class="text-xl text-orange-500 font-semibold">Rankings</h1>
+                    <router-link to="/player/search" class="text-blue-500 font-bold"
+                        >View all</router-link
+                    >
+                </div>
 
                 <div class="mt-2 flex flex-col">
                     <div

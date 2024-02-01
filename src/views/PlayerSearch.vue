@@ -1,18 +1,18 @@
 <template>
     <div class="w-full px-2 animate-fadeIn">
-        <div class="w-full flex items-end">
+        <!-- <div class="w-full flex items-end">
             <input
                 type="text"
                 placeholder="Search"
                 class="px-2 w-[80%] bg-transparent border-b border-b-orange-500 outline-none text-orange-500 text-xl placeholder-orange-500"
             />
             <button class="bg-orange-500 h-full p-4 w-[20%] text-white font-bold">Search</button>
-        </div>
+        </div> -->
         <LoadingScreen
             v-if="loading"
             class="h-[500px] flex justify-center items-center"
         ></LoadingScreen>
-        <div class="mt-14 animate-fadeIn" v-else>
+        <div class="animate-fadeIn" v-else>
             <h2 class="text-3xl text-blue-500">Players</h2>
             <div
                 v-for="(user, i) in users"

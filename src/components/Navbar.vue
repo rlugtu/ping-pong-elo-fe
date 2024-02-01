@@ -1,23 +1,21 @@
 <template>
-    <div class="grid grid-cols-4 text-slate-300 font-semibold animate-fadeIn">
-        <router-link
-            to="/"
-            class="flex justify-center items-center border-r border-gray-400 pb-[20px]"
-            >Feed</router-link
-        >
-        <router-link
-            to="/player/search"
-            class="flex justify-center items-center pb-[20px] border-r border-gray-400"
-            >Players</router-link
-        >
-        <router-link to="/lobbies" class="flex justify-center items-center pb-[20px]"
-            >Play</router-link
-        >
-        <router-link
-            to="/profile"
-            class="flex justify-center items-center border-l border-gray-400 pb-[20px]"
-            >Profile</router-link
-        >
+    <div class="grid grid-cols-3 text-slate-500 font-semibold animate-fadeIn">
+        <router-link to="/" class="flex justify-center items-center pb-[20px]">
+            <font-awesome-icon icon="fa-solid fa-ranking-star" class="text-2xl" />
+        </router-link>
+
+        <router-link to="/lobbies" class="flex justify-center items-center pb-[20px]">
+            <font-awesome-icon icon="fa-solid fa-table-tennis-paddle-ball" class="text-2xl" />
+        </router-link>
+        <router-link to="/profile" class="flex justify-center items-center pb-[20px]">
+            <font-awesome-icon icon="fa-solid fa-user" class="text-2xl" />
+        </router-link>
     </div>
 </template>
+<style>
+.router-link-active {
+    color: #ef6c00;
+    opacity: 0.8;
+}
+</style>
 <script script lang="ts"></script>
