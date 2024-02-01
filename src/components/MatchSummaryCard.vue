@@ -25,12 +25,10 @@
 <script setup lang="ts">
 import type { Match } from '@/types/match'
 import TeamPlayerCard from './TeamPlayerCard.vue'
-import { onMounted } from 'vue'
 import { DateTime } from 'luxon'
 interface MatchConfig {
     match: Match
 }
 
 const { match } = defineProps<MatchConfig>()
-onMounted(() => console.log(DateTime.fromISO(match.createdAt).toFormat('MMMM dd, yyyy')))
 </script>

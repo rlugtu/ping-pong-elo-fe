@@ -1,3 +1,4 @@
+import type { User } from '@auth0/auth0-vue'
 import type { MatchTeam, Team } from './team'
 
 export type MatchMode = 'SINGLES' | 'DOUBLES'
@@ -9,11 +10,12 @@ export const TEAM_SIZE_BY_MATCH_MODE: Record<MatchMode, number> = {
 
 export interface MatchSetup {
     teamA: string[]
+    teamB: string[] | null
     winningScore: MatchWinningScore
     mode: MatchMode
 }
 
-export interface Match extends Omit<MatchSetup, 'teamA'> {
+export interface Match extends Omit<MatchSetup, 'teamA' | 'teamB'> {
     id: string
     state: MatchState
     teamA: MatchTeam
@@ -39,4 +41,10 @@ export interface UpdateMatchScoreDto {
     score: number
 
     isFinalScore: boolean
+}
+
+export interface MatchChallenge {
+    challenger: Pick<User, 'elo' | 'firstName' | 'id'>
+    challengeeUserId: string
+    matchInfo: Pick<Match, 'winningScore' | 'mode' | 'id'>
 }
