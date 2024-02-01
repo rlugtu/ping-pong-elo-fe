@@ -6,6 +6,7 @@ import { authGuard } from '@auth0/auth0-vue'
 import Lobbies from '@/views/Lobbies.vue'
 import Match from '@/views/Match.vue'
 import AccountSetup from '@/views/AccountSetup.vue'
+import PlayerSearch from '@/views/PlayerSearch.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,12 @@ const router = createRouter({
             path: '/user-setup',
             name: 'user-setup',
             component: AccountSetup,
+            beforeEnter: authGuard
+        },
+        {
+            path: '/player/search',
+            name: 'player-search',
+            component: PlayerSearch,
             beforeEnter: authGuard
         },
         {
