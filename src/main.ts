@@ -7,10 +7,16 @@ import './index.css'
 import { createAuth0 } from '@auth0/auth0-vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faUser, faGear } from '@fortawesome/free-solid-svg-icons'
+import {
+    faUser,
+    faGear,
+    faPingPongPaddleBall,
+    faFeed,
+    faRankingStar
+} from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
-library.add(faUser, faGear)
+library.add(faUser, faGear, faUser, faPingPongPaddleBall, faFeed, faRankingStar)
 
 const app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)
