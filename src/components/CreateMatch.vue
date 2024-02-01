@@ -1,6 +1,7 @@
 <template>
     <div class="p-4 text-white">
-        <h1 class="text-3xl font-bold">Create Match</h1>
+        <h1 class="text-3xl font-bold">Match Details</h1>
+        <slot></slot>
         <div class="mt-8 grid grid-cols-2">
             <h1 class="col-span-2 text-center mb-4 text-xl font-semibold">Mode</h1>
             <button
@@ -48,6 +49,7 @@ import { type MatchWinningScore, type MatchSetup, type MatchMode } from '../type
 
 const matchSetup = ref<MatchSetup>({
     teamA: [],
+    teamB: null,
     winningScore: 11,
     mode: 'SINGLES'
 })

@@ -148,7 +148,6 @@ const opposingTeamScore = computed(() => {
 })
 
 function updateScore(matchId: string, teamId: string, score: number): void {
-    console.log(state.matches[matchId].scores[teamId])
     state.matches[matchId].scores[teamId] = score
     // state.matches[matchId].scores[teamId] = score
 
@@ -162,7 +161,6 @@ function updateScore(matchId: string, teamId: string, score: number): void {
 async function submitMatchScores(
     matchId: string,
     userTeam: MatchTeam,
-    // opposingTeam: MatchTeam,
     isFinalScore: boolean = false
 ): Promise<void> {
     try {

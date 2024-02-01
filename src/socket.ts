@@ -1,7 +1,7 @@
 import { reactive } from 'vue'
 import { Socket, io } from 'socket.io-client'
 import { API_SERVER } from './utils/globals'
-import type { Lobby, Match, MatchState } from './types/match'
+import type { Lobby, Match, MatchChallenge, MatchState } from './types/match'
 import { useUserStore } from './stores/user'
 import { useNotificationStore, type Notification } from './stores/notification'
 
@@ -29,11 +29,13 @@ export const state = reactive<{
     matches: SocketMatchRooms
     lobbies: Lobby[]
     inProgressMatches: Match[]
+    challengeMatchRequest: MatchChallenge | null
 }>({
     connected: false,
     matches: {},
     lobbies: [],
-    inProgressMatches: []
+    inProgressMatches: [],
+    challengeMatchRequest: null
 })
 
 const URL = API_SERVER
@@ -96,6 +98,12 @@ socket.on('notificationAlert', (notification: Notification) => {
     notificationStore.notification = notification
 })
 
+// CHALLENGE MATCH
+
+socket.on('challengeMatchRequest', (matchRequest: MatchChallenge | null) => {
+    state.challengeMatchRequest = matchRequest
+})
+
 // Helpers
 export function socketSetup(userId: string, socketId: string): void {
     socket.emit('newConnection', {
@@ -117,4 +125,12 @@ export function joinMatchSocket(matchId: string, socket: Socket) {
         socketId: socket.id,
         matchId
     })
+}
+
+export function refreshOpenLobbies(): void {
+    socket.emit('getLobbiesByServer')
+}
+
+export function notifyParticipantsOnMatchProgress(userIds: string[]): void {
+    socket.emit('notifyParticipantsOnMatchProgressEvent', userIds)
 }

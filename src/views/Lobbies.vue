@@ -71,7 +71,7 @@ import { useMatchStore } from '@/stores/match'
 import type { MatchSetup } from '@/types/match'
 import { useUserStore } from '../stores/user'
 import { type Lobby } from '../types/match'
-import { socket, state } from '@/socket'
+import { notifyParticipantsOnMatchProgress, refreshOpenLobbies, socket, state } from '@/socket'
 import router from '@/router'
 
 const matchStore = useMatchStore()
@@ -99,9 +99,6 @@ function toggleOffJoiningLobby(): void {
     selectedLobby.value = null
     joiningLobby.value = false
 }
-function refreshOpenLobbies(): void {
-    socket.emit('getLobbiesByServer')
-}
 
 function isLobbyOwner(lobby: Lobby, userId: string): boolean {
     return lobby.teamA.users.some((user) => user.id === userId)
@@ -121,9 +118,6 @@ async function createMatch(match: MatchSetup): Promise<void> {
     }
 }
 
-function notifyParticipantsOnMatchProgress(userIds: string[]): void {
-    socket.emit('notifyParticipantsOnMatchProgressEvent', userIds)
-}
 async function joinMatch(): Promise<void> {
     try {
         if (!selectedLobby.value || !user.value) {
@@ -133,9 +127,10 @@ async function joinMatch(): Promise<void> {
         const { id } = user.value
 
         const usersToAdd = selectedLobby.value.teamB?.users.map((user) => user.id) ?? []
+
         usersToAdd.push(id)
 
-        const match = await matchStore.joinLobby(selectedLobby.value.id, {
+        await matchStore.joinLobby(selectedLobby.value.id, {
             teamB: usersToAdd
         })
 
@@ -148,7 +143,6 @@ async function joinMatch(): Promise<void> {
             .map((user) => user.id)
 
         notifyParticipantsOnMatchProgress(otherParticipants)
-
         router.push(`/match/${selectedLobby.value.id}`)
     } catch (error) {
         console.log(error)
