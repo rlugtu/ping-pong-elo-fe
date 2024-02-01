@@ -3,7 +3,10 @@
         <h1 class="p-2 text-slate-300 text-4xl font-semibold">Ping Pong</h1>
 
         <RouterView class="font-sans bg-gray-900 pt-6 pb-[120px]" />
-        <Navbar v-if="user" class="fixed bottom-0 w-full bg-slate-700 h-[72px]"></Navbar>
+        <Navbar
+            v-if="user"
+            class="fixed bottom-0 w-full backdrop-blur-2xl backdrop-brightness-50 bg-blue-500 bg-opacity-10 h-[72px]"
+        ></Navbar>
         <Modal v-if="notification" class="z-10 flex justify-center items-center p-4">
             <Notification :notification="notification"></Notification
         ></Modal>
