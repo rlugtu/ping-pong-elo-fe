@@ -47,6 +47,12 @@ export const useMatchStore = defineStore('match', () => {
         return res.data
     }
 
+    async function deleteMatch(matchId: string): Promise<void> {
+        const res = await apiClient.delete(`/match/${matchId}`)
+
+        return res.data
+    }
+
     return {
         createMatch,
         getAllOpenLobbies,
@@ -54,6 +60,7 @@ export const useMatchStore = defineStore('match', () => {
         getInProgressMatches,
         getMatch,
         updateMatchScore,
-        getAllMatchesByState
+        getAllMatchesByState,
+        deleteMatch
     }
 })

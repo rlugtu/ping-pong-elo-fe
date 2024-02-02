@@ -57,10 +57,11 @@ async function acceptChallenge(): Promise<void> {
 
 async function rejectChallenge(): Promise<void> {
     try {
+        await matchStore.deleteMatch(matchChallenge.matchInfo.id)
+
         socket.emit('clearUserChallengeRequest', {
             userId: userId.value
         })
-        // delete match
     } catch (error) {}
 }
 </script>
