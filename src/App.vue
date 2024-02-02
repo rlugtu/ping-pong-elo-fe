@@ -49,9 +49,10 @@ watch(userId, async (userId) => {
     try {
         if (userId && !userStore.user) {
             const user = await userStore.getUser(userId)
-
             if (user && socket.id) {
                 socketSetup(user.id, socket.id)
+            } else {
+                throw Error
             }
         }
     } catch (error) {
