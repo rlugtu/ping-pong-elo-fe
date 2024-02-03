@@ -40,8 +40,7 @@
             <div class="mt-[20%]">
                 <CreateMatch
                     class="rounded"
-                    :lobby="challengeMatch"
-                    @create="createChallengeMatch(challengeMatch, opponentToChallenge)"
+                    @create="createChallengeMatch($event, opponentToChallenge)"
                     @cancel="hideChallengeModal"
                 >
                     <h1 class="text-2xl text-orange-500 mt-4">
@@ -72,12 +71,12 @@ const loading = ref(false)
 const users = ref<User[]>([])
 const opponentToChallenge = ref<User | null>(null)
 
-const challengeMatch = ref<MatchSetup>({
-    teamA: [],
-    teamB: null,
-    winningScore: 11,
-    mode: 'SINGLES'
-})
+// const challengeMatch = ref<MatchSetup>({
+//     teamA: [],
+//     teamB: null,
+//     winningScore: 11,
+//     mode: 'SINGLES'
+// })
 
 function selectOpponent(user: User): void {
     opponentToChallenge.value = user
