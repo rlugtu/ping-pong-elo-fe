@@ -38,7 +38,7 @@
                     class="bg-transparent placeholder-slate-700 py-2 outline-none text-orange-500 text-xl"
                     type="text"
                     name="department"
-                    placeholder="Engineeriing "
+                    placeholder="Engineering"
                     v-model="userInfo.department"
                 />
             </div>
