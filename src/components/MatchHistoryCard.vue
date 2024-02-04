@@ -4,17 +4,19 @@
         :class="isWinner ? 'bg-green-400' : 'bg-red-400'"
     >
         <div class="flex flex-col">
-            <!-- <span>{{ isWinner ? 'W' : 'L' }}</span> -->
-
             <div v-for="(user, i) of opposingTeam.users" :key="i">
                 <span>{{ user.firstName }} {{ user.lastName?.[0] }}</span>
             </div>
-            <span>{{ opposingTeam.elo }}</span>
+            <span>
+                {{ opposingTeam.elo }}
+            </span>
         </div>
 
-        <div class="flex flex-col">
-            <span>{{ match.mode }}</span>
-            <span class="w-16 text-right">{{ userTeam.score }} to {{ opposingTeam.score }}</span>
+        <div class="flex flex-col text-right">
+            <span>
+                {{ DateTime.fromISO(match.updatedAt).toFormat('MM/dd h:mm a') }}
+            </span>
+            <span class="text-right w-full">{{ userTeam.score }} to {{ opposingTeam.score }}</span>
         </div>
     </div>
 </template>
@@ -23,7 +25,7 @@
 import type { Match } from '@/types/match'
 import type { User } from '@/types/users'
 import { computed } from 'vue'
-
+import { DateTime } from 'luxon'
 const { match, user } = defineProps<{
     match: Match
     user: User

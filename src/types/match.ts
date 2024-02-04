@@ -23,6 +23,7 @@ export interface Match extends Omit<MatchSetup, 'teamA' | 'teamB'> {
     winner: WinningTeam
     winningScore: MatchWinningScore
     createdAt: string
+    updatedAt: string
 }
 
 export type WinningTeam = 'teamA' | 'teamB' | null

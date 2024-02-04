@@ -4,7 +4,7 @@
             class="flex justify-between items-center p-2 bg-blue-700 rounded-t border-b-0 text-white"
         >
             <h2 class="text-md">
-                {{ DateTime.fromISO(match.createdAt).toFormat('MMMM dd, yyyy') }}
+                {{ DateTime.fromISO(match.updatedAt).toFormat('MMMM dd h:mm a') }}
             </h2>
             <h2>{{ match.mode[0] + match.mode.slice(1).toLowerCase() }}</h2>
         </div>
