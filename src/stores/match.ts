@@ -15,6 +15,12 @@ export const useMatchStore = defineStore('match', () => {
         return res.data
     }
 
+    async function getMatchesByStateAndUserId(state: MatchState, userId: string): Promise<Match[]> {
+        const res = await apiClient.get<Match[]>(`/match/state/${state}`, { params: { userId } })
+
+        return res.data
+    }
+
     async function getAllMatchesByState(state: MatchState): Promise<Match[]> {
         const res = await apiClient.get<Match[]>(`match/state/${state}`)
 
@@ -61,6 +67,7 @@ export const useMatchStore = defineStore('match', () => {
         getMatch,
         updateMatchScore,
         getAllMatchesByState,
-        deleteMatch
+        deleteMatch,
+        getMatchesByStateAndUserId
     }
 })

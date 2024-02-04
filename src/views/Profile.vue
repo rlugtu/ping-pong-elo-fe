@@ -15,7 +15,7 @@
             <h1 v-if="user?.department" class="text-xs mt">{{ user.department }}</h1>
         </div>
         <LoadingScreen
-            v-if="loading"
+            v-if="loading || !user"
             class="mt-24 flex justify-center items-center"
         ></LoadingScreen>
         <div v-else class="animate-fadeIn">
@@ -37,6 +37,14 @@
             </div>
             <div class="mt-6 min-h-[100px]">
                 <h1 class="text-2xl font-bold">Match History</h1>
+                <div class="flex flex-col gap-2 mt-4">
+                    <MatchHistoryCard
+                        v-for="(match, i) of matchHistory"
+                        :key="i"
+                        :match="match"
+                        :user="user"
+                    ></MatchHistoryCard>
+                </div>
             </div>
             <button
                 @click="authStore.handleLogout"
@@ -52,16 +60,34 @@ import LoadingScreen from '@/components/LoadingScreen.vue'
 import { useAuthStore } from '../stores/auth'
 import { useUserStore } from '../stores/user'
 import { computed, onMounted, ref } from 'vue'
+import type { Match } from '@/types/match'
+import { useMatchStore } from '@/stores/match'
+import MatchHistoryCard from '@/components/MatchHistoryCard.vue'
+import type { User } from '@/types/users'
 
 const user = computed(() => userStore.user)
 const loading = ref(false)
 
 const userStore = useUserStore()
 const authStore = useAuthStore()
+const matchStore = useMatchStore()
+
+const matchHistory = ref<Match[]>([])
+
+function isWinnerOfMatch(user: User, match: Match): boolean {
+    return user.teams.map((team) => team.id).includes(match.winningTeamId)
+}
+
 onMounted(async () => {
     try {
         loading.value = true
         await userStore.refreshUser()
+
+        if (!user.value?.id) {
+            return
+        }
+
+        matchHistory.value = await matchStore.getMatchesByStateAndUserId('COMPLETED', user.value.id)
     } catch (error) {
         console.log(error)
     } finally {
