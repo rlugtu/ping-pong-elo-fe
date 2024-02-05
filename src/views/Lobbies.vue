@@ -32,9 +32,16 @@
                     </div>
 
                     <button
+                        v-if="isLobbyOwner(lobby, user.id)"
+                        class="bg-orange-500 w-[100px] rounded rounded-l-none absolute right-0 h-full text-white font-bold"
+                        @click="cancelLobby(lobby.id)"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        v-else
                         class="bg-orange-500 w-[100px] rounded rounded-l-none absolute right-0 h-full text-white font-bold"
                         @click="toggleJoinLobby(lobby)"
-                        v-if="!isLobbyOwner(lobby, user.id)"
                     >
                         Join
                     </button>
@@ -149,6 +156,13 @@ async function joinMatch(): Promise<void> {
     } finally {
         toggleOffJoiningLobby()
     }
+}
+
+async function cancelLobby(matchId: string): Promise<void> {
+    try {
+        await matchStore.deleteMatch(matchId)
+        refreshOpenLobbies()
+    } catch (error) {}
 }
 
 onMounted(() => {
