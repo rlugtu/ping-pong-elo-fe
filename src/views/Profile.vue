@@ -19,6 +19,7 @@
             class="mt-24 flex justify-center items-center"
         ></LoadingScreen>
         <div v-else class="animate-fadeIn">
+            <EloChart :team-id="userSoloTeamId" class="mt-4" />
             <div class="mt-6 min-h-[100px]">
                 <h1 class="text-2xl font-bold mb-2">My Teams</h1>
                 <div
@@ -64,8 +65,12 @@ import type { Match } from '@/types/match'
 import { useMatchStore } from '@/stores/match'
 import MatchHistoryCard from '@/components/MatchHistoryCard.vue'
 import type { User } from '@/types/users'
+import EloChart from '@/components/EloChart.vue'
 
 const user = computed(() => userStore.user)
+const userSoloTeamId = computed(
+    () => userStore.user?.teams.find((team) => team.users.length === 1)?.id
+)
 const loading = ref(false)
 
 const userStore = useUserStore()
