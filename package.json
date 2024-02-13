@@ -21,10 +21,12 @@
         "@fortawesome/free-solid-svg-icons": "^6.5.1",
         "@fortawesome/vue-fontawesome": "^3.0.5",
         "axios": "^1.6.5",
+        "chart.js": "^4.4.1",
         "luxon": "^3.4.4",
         "pinia": "^2.1.7",
         "socket.io-client": "^4.7.4",
         "vue": "^3.3.11",
+        "vue-chartjs": "^5.3.0",
         "vue-router": "^4.2.5"
     },
     "devDependencies": {
