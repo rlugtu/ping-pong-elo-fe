@@ -1,7 +1,7 @@
 <template>
     <TableLayout>
         <template v-slot:top>
-            <h1 class="text-xl font-semibold mb-2.5">Recent Matches</h1>
+            <h1 class="text-xl font-unbounded font-semibold mb-2.5">Recent Matches</h1>
             <LoadingScreen v-if="loadingData" class="mt-[30vh]"></LoadingScreen>
             <div v-else class="flex flex-col overflow-scroll rounded-lg">
                 <div class="flex flex-col gap-[0.625rem]">

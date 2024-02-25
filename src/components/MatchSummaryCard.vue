@@ -1,7 +1,7 @@
 <template>
-    <div class="flex rounded-lg bg-[#3557FC] px-2 py-2.5" ref="scrollTarget">
+    <div class="flex rounded-lg bg-[#3557FC] px-2 py-3" ref="scrollTarget">
         <TeamPlayerCard :team="match.teamA" :playerScore="match.teamA.score" :side="'teamA'" />
-        <div class="flex flex-col items-center grow justify-between items-center h-full text-white">
+        <div class="flex justify-center items-center grow h-full">
             <!-- Move to expanded view
             <div class="w-full flex justify-between">
                 <p class="text-xs">
@@ -9,7 +9,7 @@
                 </p>
                 <p class="text-xs">{{ match.mode[0] + match.mode.slice(1).toLowerCase() }}</p>
             </div> -->
-            <p class="text-3xl">{{ match.teamA.score }}<span class="px-1">:</span>{{ match.teamB.score }}</p>
+            <p class="text-3xl font-unbounded">{{ match.teamA.score }}<span class="px-1">:</span>{{ match.teamB.score }}</p>
         </div>
         <TeamPlayerCard :team="match.teamB" :playerScore="match.teamB.score" :side="'teamB'" />
     </div>

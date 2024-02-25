@@ -7,6 +7,7 @@
             <span class="px-0.5 py-0.5 w-10 bg-[#FFE5D4] rounded-full text-[10px] text-center text-orange-600">
                 {{ team.elo }}
             </span>
+            <div class="w-2 h-2"></div>
         </div>
     </div>
 </template>

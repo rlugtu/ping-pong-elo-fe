@@ -6,6 +6,12 @@ export default {
             animation: {
                 fadeIn: 'fadeIn 0.3s ease-in-out'
             },
+            fontFamily: {
+                unbounded: [
+                    '"Unbounded"',
+                    'ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
+                ]
+            },
             keyframes: {
                 fadeIn: {
                     '0%': { opacity: 0, transform: 100 },
