@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
+import { MotionPlugin } from '@vueuse/motion'
 import './index.css'
 import { createAuth0 } from '@auth0/auth0-vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -31,4 +32,5 @@ app.use(router).use(
         }
     })
 )
+app.use(MotionPlugin)
 app.mount('#app')

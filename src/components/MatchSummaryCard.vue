@@ -1,34 +1,45 @@
 <template>
-    <div class="flex flex-col rounded">
-        <div
-            class="flex justify-between items-center p-2 bg-blue-700 rounded-t border-b-0 text-white"
-        >
-            <h2 class="text-md">
-                {{ DateTime.fromISO(match.updatedAt).toFormat('MMMM dd h:mm a') }}
-            </h2>
-            <h2>{{ match.mode[0] + match.mode.slice(1).toLowerCase() }}</h2>
+    <div class="flex rounded-lg bg-[#3557FC] px-2 py-2.5" ref="scrollTarget">
+        <TeamPlayerCard :team="match.teamA" :playerScore="match.teamA.score" :side="'teamA'" />
+        <div class="flex flex-col items-center grow justify-between items-center h-full text-white">
+            <!-- Move to expanded view
+            <div class="w-full flex justify-between">
+                <p class="text-xs">
+                    {{ DateTime.fromISO(match.updatedAt).toFormat('LLL dd') }}
+                </p>
+                <p class="text-xs">{{ match.mode[0] + match.mode.slice(1).toLowerCase() }}</p>
+            </div> -->
+            <p class="text-3xl">{{ match.teamA.score }}<span class="px-1">:</span>{{ match.teamB.score }}</p>
         </div>
-        <TeamPlayerCard
-            :team="match.teamA"
-            :playerScore="match.teamA.score"
-            :side="'teamA'"
-        ></TeamPlayerCard>
-        <TeamPlayerCard
-            :team="match.teamB"
-            :playerScore="match.teamB.score"
-            :side="'teamB'"
-            class="rounded-b border-t border-slate-400"
-        ></TeamPlayerCard>
+        <TeamPlayerCard :team="match.teamB" :playerScore="match.teamB.score" :side="'teamB'" />
     </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import type { Match } from '@/types/match'
 import TeamPlayerCard from './TeamPlayerCard.vue'
 import { DateTime } from 'luxon'
+import { useMotion } from '@vueuse/motion'
+
 interface MatchConfig {
     match: Match
 }
+
+const scrollTarget = ref()
+
+useMotion(scrollTarget, {
+    initial: {
+        opacity: 0,
+        y: 100,
+        scale: 0.6
+    },
+    visibleOnce: {
+        opacity: 1,
+        y: 0,
+        scale: 1
+    }
+})
 
 const { match } = defineProps<MatchConfig>()
 </script>

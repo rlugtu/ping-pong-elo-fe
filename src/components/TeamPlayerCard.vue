@@ -1,17 +1,13 @@
 <template>
-    <div class="px-2 py-1 flex justify-between items-center bg-slate-300">
-        <div class="flex flex-col w-[70%]">
-            <div v-for="(user, i) of team.users" :key="i">
-                <span>
-                    {{ user.firstName }}
-                    {{ user.lastName }}
-                </span>
-                <span class="ml-1 text-sm text-orange-600">
-                    {{ team.elo }}
-                </span>
-            </div>
+    <div class="w-[101px] flex flex-col flex-none justify-between items-center">
+        <div v-for="(user, i) of team.users" :key="i" class="flex flex-col items-center">
+            <span>
+                {{ user.firstName }}
+            </span>
+            <span class="px-0.5 py-0.5 w-10 bg-[#FFE5D4] rounded-full text-[10px] text-center text-orange-600">
+                {{ team.elo }}
+            </span>
         </div>
-        <h1 class="text-lg">{{ playerScore }}</h1>
     </div>
 </template>
 
@@ -25,7 +21,7 @@ interface Config {
     side: 'teamA' | 'teamB'
 }
 
-const { team, playerScore, side } = defineProps<Config>()
+const { team, side } = defineProps<Config>()
 
 const bgStyles = ref<string>('')
 onMounted(() => {
