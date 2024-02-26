@@ -9,7 +9,7 @@
                 </p>
                 <p class="text-xs">{{ match.mode[0] + match.mode.slice(1).toLowerCase() }}</p>
             </div> -->
-            <p class="text-3xl font-unbounded">{{ match.teamA.score }}<span class="px-1">:</span>{{ match.teamB.score }}</p>
+            <p class="text-3xl font-unbounded">{{ match.teamA.score }}<span class="px-2">-</span>{{ match.teamB.score }}</p>
         </div>
         <TeamPlayerCard :team="match.teamB" :playerScore="match.teamB.score" :side="'teamB'" />
     </div>
