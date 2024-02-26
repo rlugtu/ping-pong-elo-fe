@@ -1,71 +1,52 @@
 <template>
-    <main class="p-2">
-        <LoadingScreen v-if="loading || !user" class="mt-[30vh]"></LoadingScreen>
-        <div v-else class="animate-fadeIn">
-            <div class="flex flex-col gap-2">
-                <h1 class="text-xl font-bold pb-2 text-blue-500">My Live Matches</h1>
+    <TableLayout>
+        <template v-slot:top>
+            <LoadingScreen v-if="loading || !user" class="mt-[30vh]"></LoadingScreen>
+            <div v-else class="flex flex-col gap-2">
+                <h1 class="text-xl font-unbounded font-semibold mb-2.5">My Live Matches</h1>
                 <div v-for="(match, i) of inProgressMatches" :key="i">
                     <router-link :to="`match/${match.id}`">
-                        <MatchCard
-                            :match="match"
-                            :user="user"
-                            class="border border-blue-500 rounded-lg"
-                        ></MatchCard>
+                        <MatchCard :match="match" :user="user" class="border border-blue-500 rounded-lg"></MatchCard>
                     </router-link>
                 </div>
             </div>
-            <div class="flex flex-col gap-2 mt-12">
-                <div class="flex justify-between text-orange-500 pb-2">
-                    <h1 class="text-xl font-bold">Open Lobbies</h1>
-                    <button @click="toggleCreateMatch" class="w-[100px] rounded font-bold">
+        </template>
+        <template v-slot:bottom>
+            <div class="flex flex-col gap-2">
+                <div class="flex justify-between">
+                    <h1 class="text-xl font-unbounded font-semibold mb-2.5">Open Lobbies</h1>
+                    <button @click="toggleCreateMatch" class="text-sm text font-bold opacity-60">
                         Create
                     </button>
                 </div>
-                <div
-                    class="border border-orange-500 pl-4 py-2 rounded flex items-center justify-between relative text-slate-300"
-                    v-for="(lobby, i) of lobbies"
-                    :key="i"
-                >
+                <div class="border border-orange-500 pl-4 py-2 rounded flex items-center justify-between relative text-slate-300"
+                    v-for="(lobby, i) of lobbies" :key="i">
                     <div>
                         <h2>{{ lobby.teamA.users[0].firstName }}'s Room</h2>
                         <h3>First to: {{ lobby.winningScore }}</h3>
                     </div>
 
-                    <button
-                        v-if="isLobbyOwner(lobby, user.id)"
+                    <button v-if="isLobbyOwner(lobby, user.id)"
                         class="bg-orange-500 w-[100px] rounded rounded-l-none absolute right-0 h-full text-white font-bold"
-                        @click="cancelLobby(lobby.id)"
-                    >
+                        @click="cancelLobby(lobby.id)">
                         Cancel
                     </button>
-                    <button
-                        v-else
+                    <button v-else
                         class="bg-orange-500 w-[100px] rounded rounded-l-none absolute right-0 h-full text-white font-bold"
-                        @click="toggleJoinLobby(lobby)"
-                    >
+                        @click="toggleJoinLobby(lobby)">
                         Join
                     </button>
                 </div>
             </div>
-
             <Modal v-if="creatingMatch">
-                <CreateMatch
-                    class="mt-[20%] rounded"
-                    @cancel="toggleCreateMatch"
-                    @create="createMatch"
-                ></CreateMatch>
+                <CreateMatch class="mt-[20%] rounded" @cancel="toggleCreateMatch" @create="createMatch"></CreateMatch>
             </Modal>
             <Modal v-if="joiningLobby && selectedLobby && user">
-                <JoinLobby
-                    class="mt-[20%] rounded"
-                    :lobby="selectedLobby"
-                    @cancel="toggleOffJoiningLobby"
-                    :user="user"
-                    @join="joinMatch"
-                ></JoinLobby>
+                <JoinLobby class="mt-[20%] rounded" :lobby="selectedLobby" @cancel="toggleOffJoiningLobby" :user="user"
+                    @join="joinMatch"></JoinLobby>
             </Modal>
-        </div>
-    </main>
+        </template>
+    </TableLayout>
 </template>
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue'
@@ -73,6 +54,7 @@ import CreateMatch from '@/components/CreateMatch.vue'
 import JoinLobby from '@/components/JoinLobby.vue'
 import Modal from '@/components/Modal.vue'
 import LoadingScreen from '@/components/LoadingScreen.vue'
+import TableLayout from '@/components/layouts/TableLayout.vue'
 import MatchCard from '@/components/MatchCard.vue'
 import { useMatchStore } from '@/stores/match'
 import type { MatchSetup } from '@/types/match'
@@ -162,7 +144,7 @@ async function cancelLobby(matchId: string): Promise<void> {
     try {
         await matchStore.deleteMatch(matchId)
         refreshOpenLobbies()
-    } catch (error) {}
+    } catch (error) { }
 }
 
 onMounted(() => {

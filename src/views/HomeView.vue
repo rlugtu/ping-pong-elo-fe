@@ -2,7 +2,7 @@
     <TableLayout>
         <template v-slot:top>
             <h1 class="text-xl font-unbounded font-semibold mb-2.5">Recent Matches</h1>
-            <LoadingScreen v-if="loadingData" class="mt-[30vh]"></LoadingScreen>
+            <LoadingScreen v-if="loadingData" class="mt-[25%]"></LoadingScreen>
             <div v-else class="flex flex-col overflow-scroll rounded-lg">
                 <div class="flex flex-col gap-[0.625rem]">
                     <MatchSummaryCard v-for="(match, index) of recentMatches" :key="index" :match="match" class="rounded">
@@ -12,27 +12,16 @@
         </template>
 
         <template v-slot:bottom>
-            <LoadingScreen v-if="loadingData" class="mt-[30vh]"></LoadingScreen>
+            <div class="flex items-center justify-between">
+                <h1 class="text-xl font-unbounded font-semibold mb-2.5">Rankings</h1>
+                <router-link to="/player/search" class="text-sm text font-bold opacity-60">View all</router-link>
+            </div>
+            <LoadingScreen v-if="loadingData" class="mt-[25%]"></LoadingScreen>
 
-            <div v-else class="animate-fadeIn">
-                <div class="pt-4">
-                    <div class="flex justify-between">
-                        <h1 class="text-xl font-semibold">Rankings</h1>
-                        <router-link to="/player/search" class="text-blue-500 font-bold">View all</router-link>
-                    </div>
-
-                    <div class="flex flex-col">
-                        <div v-for="(team, i) in rankings.SINGLES" :key="i"
-                            class="py-4 flex items-center justify-between text-orange-500 text-lg border-t border-t-orange-500">
-                            <div class="flex items-center gap-2">
-                                <span cl2ass="font-bold">{{ i + 1 }}</span>
-                                <div v-for="(user, i) in team.users" :key="i">
-                                    <h2>{{ user.firstName }} {{ user.lastName }}</h2>
-                                </div>
-                            </div>
-                            <p>{{ team.elo }}</p>
-                        </div>
-                    </div>
+            <div v-else class="flex flex-col overflow-scroll rounded-lg">
+                <div class="flex flex-col gap-[0.625rem]">
+                    <!-- <RankingCard v-for="(team, i) in rankings.SINGLES" :key="i" /> -->
+                    <RankingCard v-for="(team, i) in mockData" :team="team" :place="i + 1"></RankingCard>
                 </div>
             </div>
         </template>
@@ -42,12 +31,45 @@
 <script setup lang="ts">
 import { type Match, type MatchMode } from '../types/match'
 import MatchSummaryCard from '@/components/MatchSummaryCard.vue'
+import RankingCard from '@/components/RankingCard.vue'
 import LoadingScreen from '@/components/LoadingScreen.vue'
-import TableLayout from '@/components/TableLayout.vue'
+import TableLayout from '@/components/layouts/TableLayout.vue'
 import { onMounted, ref } from 'vue'
 import { useTeamStore } from '@/stores/team'
 import type { Team } from '@/types/team'
 import { useMatchStore } from '@/stores/match'
+
+// MAKE SURE TO REMOVE MOCK DATA
+const mockData = [
+    {
+        users: [{ firstName: 'Anthony', lastName: 'Mercado' }],
+        elo: 1200
+    }, {
+        users: [{ firstName: 'Anthony', lastName: 'Mercado' }],
+        elo: 1200
+    }, {
+        users: [{ firstName: 'Anthony', lastName: 'Mercado' }],
+        elo: 1200
+    }, {
+        users: [{ firstName: 'Anthony', lastName: 'Mercado' }],
+        elo: 1200
+    }, {
+        users: [{ firstName: 'Anthony', lastName: 'Mercado' }],
+        elo: 1200
+    }, {
+        users: [{ firstName: 'Anthony', lastName: 'Mercado' }],
+        elo: 1200
+    }, {
+        users: [{ firstName: 'Anthony', lastName: 'Mercado' }],
+        elo: 1200
+    }, {
+        users: [{ firstName: 'Anthony', lastName: 'Mercado' }],
+        elo: 1200
+    }, {
+        users: [{ firstName: 'Anthony', lastName: 'Mercado' }],
+        elo: 1200
+    }
+]
 
 const loadingData = ref(false)
 const teamStore = useTeamStore()

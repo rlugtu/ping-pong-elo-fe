@@ -1,7 +1,7 @@
 <template>
     <main class="relative flex flex-col h-full text-white">
         <RouterView class="font-sans" />
-        <Navbar v-if="user" class="w-full backdrop-blur-2xl backdrop-brightness-50 bg-blue-500 bg-opacity-10 h-[72px]">
+        <Navbar v-if="user" class="w-full h-24 absolute bottom-0">
         </Navbar>
         <Modal v-if="notification" class="z-10 flex justify-center items-center p-4">
             <Notification :notification="notification"></Notification>
