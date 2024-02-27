@@ -20,8 +20,7 @@
 
             <div v-else class="flex flex-col overflow-scroll rounded-lg">
                 <div class="flex flex-col gap-[0.625rem]">
-                    <!-- <RankingCard v-for="(team, i) in rankings.SINGLES" :key="i" /> -->
-                    <RankingCard v-for="(team, i) in mockData" :team="team" :place="i + 1"></RankingCard>
+                    <RankingCard v-for="(team, i) in rankings.SINGLES" :team="team" :place="i + 1"></RankingCard>
                 </div>
             </div>
         </template>
@@ -38,38 +37,6 @@ import { onMounted, ref } from 'vue'
 import { useTeamStore } from '@/stores/team'
 import type { Team } from '@/types/team'
 import { useMatchStore } from '@/stores/match'
-
-// MAKE SURE TO REMOVE MOCK DATA
-const mockData = [
-    {
-        users: [{ firstName: 'Anthony', lastName: 'Mercado' }],
-        elo: 1200
-    }, {
-        users: [{ firstName: 'Anthony', lastName: 'Mercado' }],
-        elo: 1200
-    }, {
-        users: [{ firstName: 'Anthony', lastName: 'Mercado' }],
-        elo: 1200
-    }, {
-        users: [{ firstName: 'Anthony', lastName: 'Mercado' }],
-        elo: 1200
-    }, {
-        users: [{ firstName: 'Anthony', lastName: 'Mercado' }],
-        elo: 1200
-    }, {
-        users: [{ firstName: 'Anthony', lastName: 'Mercado' }],
-        elo: 1200
-    }, {
-        users: [{ firstName: 'Anthony', lastName: 'Mercado' }],
-        elo: 1200
-    }, {
-        users: [{ firstName: 'Anthony', lastName: 'Mercado' }],
-        elo: 1200
-    }, {
-        users: [{ firstName: 'Anthony', lastName: 'Mercado' }],
-        elo: 1200
-    }
-]
 
 const loadingData = ref(false)
 const teamStore = useTeamStore()
