@@ -32,12 +32,17 @@ useMotion(scrollTarget, {
     initial: {
         opacity: 0,
         y: 100,
-        scale: 0.6
+        scale: 0.6,
+        filter: 'blur(2px)'
     },
-    visibleOnce: {
+    visible: {
         opacity: 1,
         y: 0,
-        scale: 1
+        scale: 1,
+        filter: 'blur(0)',
+        transition: {
+            duration: 300,
+        },
     }
 })
 

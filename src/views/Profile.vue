@@ -1,9 +1,6 @@
 <template>
     <Layout>
         <div class="flex flex-col gap-3 items-center overflow-auto">
-            <div class="border rounded-full w-24 min-h-24 flex flex-col justify-center items-center">
-                <font-awesome-icon icon="fa-solid fa-user" class="w-10 h-10" />
-            </div>
             <div class="flex flex-col gap-1 text-center">
                 <p class="text-3xl text-medium font-unbounded">{{ user?.firstName }} {{ user?.lastName }}</p>
                 <p class="text-lg text-gray-200" v-if="user?.department">{{ user.department }}</p>
@@ -17,7 +14,7 @@
                     </MatchHistoryCard>
                 </div>
             </div>
-            <button @click="authStore.handleLogout" class="bg-red-500 w-[150px] rounded-xl p-4 mx-auto mt-6">
+            <button @click="authStore.handleLogout" class="bg-red-500 rounded-lg px-2.5 py-2 mx-auto mt-6">
                 Logout
             </button>
         </div>
