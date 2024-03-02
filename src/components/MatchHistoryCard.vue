@@ -11,7 +11,7 @@
                 {{ opposingTeam.elo }}
             </span>
         </div>
-
+        <slot />
         <div class="flex flex-col text-right">
             <span>
                 {{ DateTime.fromISO(match.updatedAt).toFormat('MM/dd h:mm a') }}
