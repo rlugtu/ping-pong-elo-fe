@@ -1,5 +1,6 @@
 import type { User } from '@auth0/auth0-vue'
 import type { MatchTeam, Team } from './team'
+import type { Elo } from './elo'
 
 export type MatchMode = 'SINGLES' | 'DOUBLES'
 
@@ -25,6 +26,7 @@ export interface Match extends Omit<MatchSetup, 'teamA' | 'teamB'> {
     createdAt: string
     updatedAt: string
     winningTeamId: string
+    postMatchElos: Elo[]
 }
 
 export type WinningTeam = 'teamA' | 'teamB' | null

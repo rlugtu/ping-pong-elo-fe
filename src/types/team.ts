@@ -5,6 +5,7 @@ export interface Team {
     id: string
     users: User[]
     elo: number
+    completedSeasonPlacements: boolean
 }
 
 export type TeamMatchSide = 'teamA' | 'teamB'

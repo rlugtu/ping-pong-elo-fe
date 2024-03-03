@@ -11,10 +11,15 @@
             <div class="flex flex-col w-full overflow-scroll">
                 <div class="flex flex-col gap-[0.625rem]">
                     <MatchHistoryCard v-for="(match, i) of matchHistory" :key="i" :match="match" :user="user">
+                        {{ getEloDifference(userSoloTeamId ?? '', match, matchHistory[i + 1]) }}
                     </MatchHistoryCard>
                 </div>
             </div>
-            <button @click="authStore.handleLogout" class="bg-red-500 rounded-lg px-2.5 py-2 mx-auto mt-6">
+
+            <button
+                @click="authStore.handleLogout"
+                class="bg-red-500 w-[150px] rounded-xl p-4 mx-auto mt-6"
+            >
                 Logout
             </button>
         </div>
@@ -48,6 +53,18 @@ function isWinnerOfMatch(user: User, match: Match): boolean {
     return user.teams.map((team) => team.id).includes(match.winningTeamId)
 }
 
+function getEloDifference(teamId: string, match: Match, previousMatch: Match): string | void {
+    if (!match || !previousMatch) return
+    const currentElo = match.postMatchElos?.find((elo) => elo.teamId === teamId)?.elo
+    const previousElo = previousMatch.postMatchElos?.find((elo) => elo.teamId === teamId)?.elo
+    console.log({ currentElo, previousElo })
+    if (!currentElo || !previousElo) return
+
+    const diff = currentElo - previousElo
+
+    return `${diff > 0 ? '+' : ''} ${diff}`
+}
+
 onMounted(async () => {
     try {
         loading.value = true
@@ -58,6 +75,7 @@ onMounted(async () => {
         }
 
         matchHistory.value = await matchStore.getMatchesByStateAndUserId('COMPLETED', user.value.id)
+        console.log({ matchHistory: matchHistory.value })
     } catch (error) {
         console.log(error)
     } finally {
