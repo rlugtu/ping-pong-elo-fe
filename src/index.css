@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-    background: #111827;
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+    margin: 0;
+    padding: 0;
+    height: 100dvh;
+    overflow: hidden;
+}
+
+*::-webkit-scrollbar {
+    display: none;
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full px-2 animate-fadeIn">
+    <Layout>
         <!-- <div class="w-full flex items-end">
             <input
                 type="text"
@@ -8,54 +8,43 @@
             />
             <button class="bg-orange-500 h-full p-4 w-[20%] text-white font-bold">Search</button>
         </div> -->
-        <LoadingScreen
-            v-if="loading"
-            class="h-[500px] flex justify-center items-center"
-        ></LoadingScreen>
-        <div class="animate-fadeIn" v-else>
-            <h2 class="text-3xl text-blue-500">Players</h2>
-            <div
-                v-for="(user, i) in users"
-                :key="i"
-                class="p-2 text-blue-400 flex items-center justify-between border-b border-b-blue-500 py-4"
-            >
+        <h1 class="text-xl font-unbounded font-semibold mb-2.5">Players</h1>
+        <LoadingScreen v-if="loading" class="h-[500px] flex justify-center items-center"></LoadingScreen>
+        <div v-else class="flex flex-col gap-[0.625rem] overflow-scroll rounded-lg">
+            <div v-for="(user, i) in users" :key="i"
+                class="flex justify-between items-center rounded-lg bg-[#3557FC] px-2 py-3">
                 <div class="flex flex-col">
                     <h1>{{ user.firstName }} {{ user.lastName }}</h1>
                 </div>
-                <div class="flex gap-4">
-                    <button
-                        class="border border-blue-500 rounded py-2 px-4"
-                        @click="selectOpponent(user)"
-                    >
+                <div class="flex gap-2.5">
+                    <button class="bg-[#FF7C4D] btn-shadow rounded-lg p-2" @click="selectOpponent(user)">
                         Challenge
                     </button>
-                    <button class="border border-orange-500 text-orange-500 rounded px-4">
+                    <!-- <button class="bg-gray-100 text-gray-900 rounded-lg p-2">
                         Visit
-                    </button>
+                    </button> -->
                 </div>
             </div>
         </div>
 
         <Modal v-if="opponentToChallenge">
             <div class="mt-[20%]">
-                <CreateMatch
-                    class="rounded"
-                    @create="createChallengeMatch($event, opponentToChallenge)"
-                    @cancel="hideChallengeModal"
-                >
+                <CreateMatch class="rounded" @create="createChallengeMatch($event, opponentToChallenge)"
+                    @cancel="hideChallengeModal">
                     <h1 class="text-2xl text-orange-500 mt-4">
                         Challenge {{ opponentToChallenge.firstName }}
-                    </h1></CreateMatch
-                >
+                    </h1>
+                </CreateMatch>
             </div>
         </Modal>
-    </div>
+    </Layout>
 </template>
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue'
 import LoadingScreen from '@/components/LoadingScreen.vue'
 import CreateMatch from '@/components/CreateMatch.vue'
 import Modal from '@/components/Modal.vue'
+import Layout from '@/components/layouts/Layout.vue'
 import { useUserStore } from '@/stores/user'
 import type { User } from '@/types/users'
 import type { MatchChallenge, MatchSetup } from '@/types/match'
@@ -133,3 +122,9 @@ onMounted(async () => {
     }
 })
 </script>
+
+<style>
+.btn-shadow {
+    box-shadow: 0px 0px 0px 1px rgba(224, 34, 34, 0.76), 0px 1px 2px 0px rgba(80, 47, 42, 0.12);
+}
+</style>
