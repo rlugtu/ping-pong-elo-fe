@@ -14,7 +14,7 @@ export default defineConfig({
                 name: 'Ping Pong',
                 short_name: 'PingPong',
                 description: 'Ping Pong Elo System',
-                theme_color: '#111827',
+                theme_color: '#FFFFFF',
                 icons: [
                     {
                         src: '/img/icons/192.png',
