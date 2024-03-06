@@ -1,13 +1,12 @@
 <template>
-    <div class="w-[101px] flex flex-col flex-none justify-between items-center">
+    <div class="w-20 flex flex-col flex-none justify-between items-center">
         <div v-for="(user, i) of team.users" :key="i" class="flex flex-col items-center">
-            <span>
+            <span class="text-sm md:text-base">
                 {{ user.firstName }}
             </span>
             <span class="px-0.5 py-0.5 w-10 bg-[#FFE5D4] rounded-full text-[10px] text-center text-orange-600">
                 {{ team.elo }}
             </span>
-            <div class="w-2 h-2"></div>
         </div>
     </div>
 </template>
