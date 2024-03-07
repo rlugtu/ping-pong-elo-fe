@@ -5,7 +5,7 @@
                 <div class="w-full flex justify-end">
                     <button
                         @click="authStore.handleLogout"
-                        class="w-[150px] rounded-xl font-bold text-orange-500 text-xl flex justify-end items-center"
+                        class="w-[150px] rounded-xl text-lg flex justify-end items-center"
                     >
                         Logout
                         <font-awesome-icon icon="fa-solid fa-door-open" class="ml-2" />
@@ -22,7 +22,7 @@
             <div class="w-full font-unbounded">
                 <div class="grid grid-cols-2 gap-6">
                     <div class="grid grid-cols-2">
-                        <h1 class="col-span-2 text-md text-center font-semibold mb-2.5">
+                        <h1 class="col-span-2 text-md text-center font-semibold mb-2.5 text-nowrap">
                             Current Season
                         </h1>
                         <span class="text-center text-xl text-green-500 font-bold">
