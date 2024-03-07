@@ -44,7 +44,11 @@
                 </div>
             </div>
             <div class="flex flex-col w-full">
-                <h1 class="text-xl font-unbounded font-semibold mb-2.5">H2H</h1>
+                <div class="flex items-center mb-2">
+                    <h1 class="text-xl font-unbounded font-semibold w-[80%]">H2H</h1>
+                    <span class="grow text-center font-bold"> W </span>
+                    <span class="grow text-center font-bold"> L </span>
+                </div>
                 <div v-for="(matchup, i) in user?.performanceSummary.headToHeads" class="flex">
                     <div class="flex w-[80%]">
                         <p v-for="(name, i) in matchup.record.userNames">
