@@ -22,8 +22,8 @@
             <div class="w-full font-unbounded">
                 <div class="grid grid-cols-2 gap-6">
                     <div class="grid grid-cols-2">
-                        <h1 class="col-span-2 text-md text-center font-semibold mb-2.5 text-nowrap">
-                            Current Season
+                        <h1 class="col-span-2 text-center font-semibold mb-2.5 text-nowrap">
+                            Season
                         </h1>
                         <span class="text-center text-xl text-green-500 font-bold">
                             {{ user?.performanceSummary.totalWins }}</span
@@ -33,7 +33,7 @@
                         >
                     </div>
                     <div class="grid grid-cols-2">
-                        <h1 class="col-span-2 text-md text-center font-semibold mb-2.5">Total</h1>
+                        <h1 class="col-span-2 text-center font-semibold mb-2.5">Total</h1>
                         <span class="text-center text-xl text-green-500 font-bold">
                             {{ user?.performanceSummary.totalWins }}</span
                         >
