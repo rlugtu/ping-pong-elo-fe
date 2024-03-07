@@ -1,5 +1,6 @@
 import type { MatchMode } from './match'
 import type { User } from './users'
+import type { Season } from './season'
 
 export interface Team {
     id: string
@@ -27,4 +28,27 @@ export interface TeamQueryParams {
 
 export interface MatchTeam extends Team {
     score: number
+}
+
+export type TeamRecordSummary = {
+    wins: number
+    losses: number
+}
+
+export type TeamHeadToHeadRecord = TeamRecordSummary & {
+    userNames: string[]
+}
+
+export type TeamHeadToHead = {
+    teamId: string
+    record: TeamHeadToHeadRecord
+}
+
+export type TeamPerformanceSummary = {
+    totalWins: number
+    totalLosses: number
+    bySeason: TeamRecordSummary & {
+        season: Season
+    }
+    headToHeads: TeamHeadToHead[]
 }

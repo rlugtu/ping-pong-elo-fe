@@ -13,11 +13,12 @@ import {
     faGear,
     faPingPongPaddleBall,
     faFeed,
-    faRankingStar
+    faRankingStar,
+    faDoorOpen
 } from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
-library.add(faUser, faGear, faUser, faPingPongPaddleBall, faFeed, faRankingStar)
+library.add(faUser, faGear, faUser, faPingPongPaddleBall, faFeed, faRankingStar, faDoorOpen)
 
 const app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)
