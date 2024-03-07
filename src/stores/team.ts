@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { Team, TeamQueryParams } from '@/types/team'
+import type { Team, TeamPerformanceSummary, TeamQueryParams } from '@/types/team'
 import { API_SERVER } from '@/utils/globals'
 import { useAuthStore } from './auth'
 import apiClient from '@/api-client/api-client'
@@ -12,6 +12,18 @@ export const useTeamStore = defineStore('team', () => {
             ...authHeader,
             params: qp
         })
+
+        return res.data
+    }
+
+    async function getTeamPerformanceSummary(teamId: string): Promise<TeamPerformanceSummary> {
+        const authHeader = await useAuthStore().getAuthHeader()
+        const res = await apiClient.get<TeamPerformanceSummary>(
+            `${API_SERVER}/team/${teamId}/h2h`,
+            {
+                ...authHeader
+            }
+        )
 
         return res.data
     }

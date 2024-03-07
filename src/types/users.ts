@@ -1,5 +1,5 @@
 import type { Elo } from './elo'
-import type { Team } from './team'
+import type { Team, TeamPerformanceSummary } from './team'
 
 export interface CreateUser {
     id: string
@@ -11,4 +11,6 @@ export interface CreateUser {
 export interface User extends CreateUser {
     eloHistory: Elo[]
     teams: Team[]
+    elo: number
+    performanceSummary: TeamPerformanceSummary
 }

@@ -1,27 +1,80 @@
 <template>
     <Layout>
         <div class="flex flex-col gap-3 items-center overflow-auto">
-            <div class="flex flex-col gap-1 text-center">
-                <p class="text-3xl text-medium font-unbounded">{{ user?.firstName }} {{ user?.lastName }}</p>
+            <div class="flex flex-col gap-1 text-center w-full">
+                <div class="w-full flex justify-end">
+                    <button
+                        @click="authStore.handleLogout"
+                        class="w-[150px] rounded-xl font-bold text-orange-500 text-xl flex justify-end items-center"
+                    >
+                        Logout
+                        <font-awesome-icon icon="fa-solid fa-door-open" class="ml-2" />
+                    </button>
+                </div>
+
+                <p class="text-3xl text-medium font-unbounded">
+                    {{ user?.firstName }} {{ user?.lastName }}
+                </p>
                 <p class="text-lg text-gray-200" v-if="user?.department">{{ user.department }}</p>
                 <p class="font-bold">{{ user?.elo }}</p>
             </div>
             <EloChart :team-id="userSoloTeamId" />
+            <div class="w-full font-unbounded">
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="grid grid-cols-2">
+                        <h1 class="col-span-2 text-md text-center font-semibold mb-2.5">
+                            Current Season
+                        </h1>
+                        <span class="text-center text-xl text-green-500 font-bold">
+                            {{ user?.performanceSummary.totalWins }}</span
+                        >
+                        <span class="text-center text-xl text-red-500 font-bold">
+                            {{ user?.performanceSummary.totalLosses }}</span
+                        >
+                    </div>
+                    <div class="grid grid-cols-2">
+                        <h1 class="col-span-2 text-md text-center font-semibold mb-2.5">Total</h1>
+                        <span class="text-center text-xl text-green-500 font-bold">
+                            {{ user?.performanceSummary.totalWins }}</span
+                        >
+                        <span class="text-center text-xl text-red-500 font-bold">
+                            {{ user?.performanceSummary.totalLosses }}</span
+                        >
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col w-full">
+                <h1 class="text-xl font-unbounded font-semibold mb-2.5">H2H</h1>
+                <div v-for="(matchup, i) in user?.performanceSummary.headToHeads" class="flex">
+                    <div class="flex w-[80%]">
+                        <p v-for="(name, i) in matchup.record.userNames">
+                            {{ name }}
+                        </p>
+                    </div>
+                    <span class="grow text-center">
+                        {{ matchup.record.wins }}
+                    </span>
+                    <span class="grow text-center">
+                        {{ matchup.record.losses }}
+                    </span>
+                </div>
+            </div>
             <h1 class="text-xl font-unbounded font-semibold mb-2.5">Match History</h1>
-            <div class="flex flex-col w-full overflow-scroll">
-                <div class="flex flex-col gap-[0.625rem]">
-                    <MatchHistoryCard v-for="(match, i) of matchHistory" :key="i" :match="match" :user="user">
+            <div
+                class="flex flex-col items-center w-full overflow-scroll bg-opacity-0 min-h-[300px]"
+            >
+                <div class="flex flex-col gap-[0.625rem] w-full">
+                    <MatchHistoryCard
+                        v-for="(match, i) of matchHistory"
+                        :key="i"
+                        :match="match"
+                        :user="user"
+                        class="animate-fadeIn"
+                    >
                         {{ getEloDifference(userSoloTeamId ?? '', match, matchHistory[i + 1]) }}
                     </MatchHistoryCard>
                 </div>
             </div>
-
-            <button
-                @click="authStore.handleLogout"
-                class="bg-red-500 w-[150px] rounded-xl p-4 mx-auto mt-6"
-            >
-                Logout
-            </button>
         </div>
     </Layout>
 </template>
